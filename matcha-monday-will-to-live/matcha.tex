@@ -1,0 +1,75 @@
+% !TEX program = lualatex
+\documentclass[tikz,border=0pt]{standalone}
+\usepackage{transparent}
+\usepackage{fontspec}
+\usepackage{emoji}
+\usepackage{xstring}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\definecolor{tea}{RGB}{19,146,0}
+
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,>=latex]
+  %----- layout knobs
+  \def\ymax{4.2}
+  \def\baseline{0.25}
+  \def\k{1.1}
+  \def\daystep{0.90}   % spacing between day ticks
+  \def\xstart{0.90}    % where the first tick (fri) sits
+
+  % derived positions
+  \pgfmathsetmacro{\monA}{\xstart + 3*\daystep}   % 4th tick  = first mon
+  \pgfmathsetmacro{\monB}{\xstart + 10*\daystep}  % 11th tick = second mon
+  \pgfmathsetmacro{\xmax}{\xstart + 13*\daystep + 1.0}
+
+  %----- axes
+  \draw[tea,very thick,->] (0,0) -- (\xmax,0);
+  \draw[tea,very thick,->] (0,0) -- (0,\ymax);
+
+  % y-axis label: lowercase, italic, centered
+  \node[rotate=90,anchor=center,font=\itshape\small,black]
+    at (-0.6,0.5*\ymax) {will to live};
+
+  %----- ticks and day labels along whole axis
+  \def\days{{fri},{sat},{sun},{mon},{tue},{wed},{thu},{fri},{sat},{sun},{mon},{tue},{wed},{thu}}
+  \foreach \d [count=\i from 0] in \days {
+    \pgfmathsetmacro{\xx}{\xstart + \i*\daystep}
+    \draw[tea,thick] (\xx,0.12) -- (\xx,-0.12);  % tick
+    % label (bold only on "mon")
+    \IfStrEq{\d}{mon}{
+      \node[below=2pt,font=\bfseries\scriptsize,black] at (\xx,-0.16) {\d};
+    }{
+      \node[below=2pt,font=\scriptsize,black] at (\xx,-0.16) {\d};
+    }
+  }
+
+  %----- continuous but discontinuous-looking curve across the whole axis
+  \begin{scope}
+    \draw[tea,very thick]
+    plot[domain=0:\monA,samples=90]
+        (\x,{\baseline + (\ymax-0.6-\baseline)*exp(-\k*(\x))});
+
+    % vertical jump at first Monday
+    \draw[tea,very thick] (\monA,\baseline+0.05) -- (\monA,{\ymax-0.60});
+    \node at (\monA,{\ymax-0.25}) {\emoji{tea}};
+
+    \draw[tea,very thick]
+    plot[domain=\monA:\monB,samples=90]
+        (\x,{\baseline + (\ymax-0.6-\baseline)*exp(-\k*(\x-\monA))});
+
+    % vertical jump at second Monday
+    \draw[tea,very thick] (\monB,\baseline) -- (\monB,{\ymax-0.60});
+    \node at (\monB,{\ymax-0.25}) {\emoji{tea}};
+
+    \draw[tea,very thick]
+    plot[domain=\monB:\xmax-0.5,samples=90]
+        (\x,{\baseline + (\ymax-0.6-\baseline)*exp(-\k*(\x-\monB))});
+  \end{scope}
+
+  % trailing approach after the second decay
+  \draw[tea,very thick]
+    plot[domain=\monB+3.2:\xmax-0.5,samples=60]
+    (\x, {\baseline + 0.45*exp(-0.45*(\x-(\monB+3.2)))});
+\end{tikzpicture}
+\end{document}
