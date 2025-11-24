@@ -1,4 +1,4 @@
-# labs
+# études
 
 ![](.github/screenshots/heda.jpg)
 
