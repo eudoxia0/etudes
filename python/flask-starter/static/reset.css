@@ -1,0 +1,27 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+ul,
+ol {
+    list-style-type: none;
+}
+
+html,
+body {
+    height: 100%;
+}

@@ -1,0 +1,10 @@
+[project]
+name = "flask-starter"
+version = "0.1.0"
+description = "A Flask starter template."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "flask>=3.1.2",
+    "jinja2>=3.1.6",
+]
