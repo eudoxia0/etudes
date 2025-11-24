@@ -1,0 +1,58 @@
+<PropertyList>
+ <logging>
+  <log>
+   <filename>flight-data.csv</filename>
+   <enabled>true</enabled>
+   <interval-ms>1000</interval-ms>
+   <delimiter>,</delimiter>
+   <!-- Orientation -->
+   <entry>
+     <title>Roll</title>
+     <enabled>true</enabled>
+     <property>/orientation/roll-deg</property>
+   </entry>
+   <entry>
+     <title>Pitch</title>
+     <enabled>true</enabled>
+     <property>/orientation/pitch-deg</property>
+   </entry>
+   <!-- Engines -->
+   <entry>
+     <title>Engine 1 Throttle</title>
+     <enabled>true</enabled>
+     <property>/controls/engines/engine[0]/throttle</property>
+   </entry>
+   <entry>
+     <title>Engine 2 Throttle</title>
+     <enabled>true</enabled>
+     <property>/controls/engines/engine[1]/throttle</property>
+   </entry>
+   <entry>
+     <title>Engine 3 Throttle</title>
+     <enabled>true</enabled>
+     <property>/controls/engines/engine[2]/throttle</property>
+   </entry>
+   <entry>
+     <title>Engine 4 Throttle</title>
+     <enabled>true</enabled>
+     <property>/controls/engines/engine[3]/throttle</property>
+   </entry>
+   <!-- Position -->
+   <entry>
+     <title>Altitude</title>
+     <enabled>true</enabled>
+     <property>/position/altitude-ft</property>
+   </entry>
+   <entry>
+     <title>Latitude</title>
+     <enabled>true</enabled>
+     <property>/position/latitude-deg</property>
+   </entry>
+   <entry>
+     <title>Longitude</title>
+     <enabled>true</enabled>
+     <property>/position/longitude-deg</property>
+   </entry>
+  </log>
+ </logging>
+</PropertyList>
