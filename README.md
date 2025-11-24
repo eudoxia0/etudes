@@ -1,6 +1,6 @@
 # études
 
-![](.github/screenshots/heda.jpg)
+![](heda.jpg)
 
 [_Breakfast Table with Blackberry Pie_][paint], [Willem Claeszoon Heda][wch], 1631.
 
