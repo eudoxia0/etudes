@@ -16,6 +16,7 @@ use ratatui::backend::CrosstermBackend;
 use ratatui::layout::Constraint;
 use ratatui::layout::Direction;
 use ratatui::layout::Layout;
+use ratatui::prelude::Stylize;
 use ratatui::style::Color;
 use ratatui::style::Modifier;
 use ratatui::style::Style;
@@ -26,6 +27,8 @@ use ratatui::widgets::Borders;
 use ratatui::widgets::List;
 use ratatui::widgets::ListItem;
 use ratatui::widgets::Paragraph;
+use ratatui::symbols::border::Set;
+use ratatui::symbols::border::PLAIN;
 
 #[derive(Clone)]
 struct Task {
@@ -38,11 +41,19 @@ enum InputMode {
     Adding,
 }
 
+#[derive(PartialEq, Clone, Copy)]
+enum View {
+    Today,
+    Areas,
+    Projects,
+}
+
 struct App {
     tasks: Vec<Task>,
     selected: usize,
     mode: InputMode,
     input: String,
+    current_view: View,
 }
 
 impl App {
@@ -65,6 +76,7 @@ impl App {
             selected: 0,
             mode: InputMode::Normal,
             input: String::new(),
+            current_view: View::Today,
         }
     }
 
@@ -156,6 +168,9 @@ fn run_app<B: ratatui::backend::Backend>(
                         app.mode = InputMode::Adding;
                         app.input.clear();
                     }
+                    KeyCode::Char('1') => app.current_view = View::Today,
+                    KeyCode::Char('2') => app.current_view = View::Areas,
+                    KeyCode::Char('3') => app.current_view = View::Projects,
                     KeyCode::Up => {
                         if key.modifiers.contains(KeyModifiers::CONTROL) {
                             app.move_task_up()
@@ -195,8 +210,44 @@ fn run_app<B: ratatui::backend::Backend>(
 fn ui(f: &mut ratatui::Frame, app: &App) {
     let chunks = Layout::default()
         .direction(Direction::Vertical)
-        .constraints([Constraint::Min(0), Constraint::Length(3)])
+        .constraints([
+            Constraint::Length(1), // Menu bar
+            Constraint::Min(0),    // Task list
+            Constraint::Length(2), // Modeline
+        ])
         .split(f.area());
+
+    // Menu bar
+    let menu_items = vec![
+        ("Today", View::Today, '1'),
+        ("Areas", View::Areas, '2'),
+        ("Projects", View::Projects, '3'),
+    ];
+
+    let menu_spans: Vec<Span> = menu_items
+        .iter()
+        .flat_map(|(name, view, key)| {
+            let style = if *view == app.current_view {
+                Style::default()
+                    .fg(Color::Black)
+                    .bg(Color::Yellow)
+                    .add_modifier(Modifier::BOLD)
+            } else {
+                Style::default().fg(Color::White)
+            };
+            vec![
+                Span::raw(" "),
+                Span::styled(format!("[{}] {}", key, name), style),
+                Span::raw(" "),
+            ]
+        })
+        .collect();
+
+    let menu = Paragraph::new(Line::from(menu_spans))
+        .block(Block::default().borders(Borders::NONE))
+        .bg(Color::Red);
+
+    f.render_widget(menu, chunks[0]);
 
     // Task list
     let items: Vec<ListItem> = app
@@ -221,13 +272,9 @@ fn ui(f: &mut ratatui::Frame, app: &App) {
         })
         .collect();
 
-    let list = List::new(items).block(
-        Block::default()
-            .borders(Borders::ALL)
-            .title("Todo List (q: quit, a: add, Space: toggle, ↑/↓: navigate, Ctrl+↑/↓: move)"),
-    );
+    let list = List::new(items).block(Block::default().borders(Borders::NONE));
 
-    f.render_widget(list, chunks[0]);
+    f.render_widget(list, chunks[1]);
 
     // Modeline
     let modeline_text = match app.mode {
@@ -249,7 +296,15 @@ fn ui(f: &mut ratatui::Frame, app: &App) {
         ])],
     };
 
-    let modeline = Paragraph::new(modeline_text).block(Block::default().borders(Borders::ALL));
+    let modeline = Paragraph::new(modeline_text).block(
+        Block::default()
+            .borders(Borders::TOP)
+            .border_style(Style::default().bg(Color::Red))
+            .border_set(Set {
+                top_left: "-",
+                ..PLAIN
+            }),
+    );
 
-    f.render_widget(modeline, chunks[1]);
+    f.render_widget(modeline, chunks[2]);
 }
