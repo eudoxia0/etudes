@@ -12,3 +12,29 @@ one = succ zero
 
 two : ℕ
 two = succ one
+
+three : ℕ
+three = succ two
+
+five : ℕ
+five = succ (succ (succ (succ (succ zero))))
+
+_+_ : ℕ → ℕ → ℕ
+zero     + n = n
+(succ m) + n = succ (m + n)
+
+_ : two + three ≡ five
+_ =
+  begin
+    two + three
+  ≡⟨⟩
+    (succ (succ zero)) + (succ (succ (succ zero)))
+  ≡⟨⟩
+    succ ((succ zero) + (succ (succ (succ zero))))
+  ≡⟨⟩
+    succ (succ (zero + (succ (succ (succ zero)))))
+  ≡⟨⟩
+    succ (succ (succ (succ (succ zero))))
+  ≡⟨⟩
+    five
+  ∎
