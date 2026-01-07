@@ -6,35 +6,50 @@ open Eq.≡-Reasoning using (begin_; step-≡-∣; _∎)
 data ℕ : Set where
   zero : ℕ
   succ : ℕ → ℕ
-
-one : ℕ
-one = succ zero
-
-two : ℕ
-two = succ one
-
-three : ℕ
-three = succ two
-
-five : ℕ
-five = succ (succ (succ (succ (succ zero))))
+{-# BUILTIN NATURAL ℕ #-}
 
 _+_ : ℕ → ℕ → ℕ
-zero     + n = n
+0        + n = n
 (succ m) + n = succ (m + n)
 
-_ : two + three ≡ five
+_ : 2 + 3 ≡ 5
 _ =
   begin
-    two + three
+    2 + 3
   ≡⟨⟩
-    (succ (succ zero)) + (succ (succ (succ zero)))
+    (succ (succ 0)) + (succ (succ (succ 0)))
   ≡⟨⟩
-    succ ((succ zero) + (succ (succ (succ zero))))
+    succ ((succ 0) + (succ (succ (succ 0))))
   ≡⟨⟩
-    succ (succ (zero + (succ (succ (succ zero)))))
+    succ (succ (0 + (succ (succ (succ 0)))))
   ≡⟨⟩
-    succ (succ (succ (succ (succ zero))))
+    succ (succ (succ (succ (succ 0))))
   ≡⟨⟩
-    five
+    5
+  ∎
+
+_ : 2 + 3 ≡ 5
+_ = refl
+
+_*_ : ℕ → ℕ → ℕ
+0        * n  =  0
+(succ m) * n  =  n + (m * n)
+
+_∸_ : ℕ → ℕ → ℕ
+m      ∸ 0      = m
+0      ∸ succ n = 0
+succ m ∸ succ n = m ∸ n
+
+_ : 5 ∸ 3 ≡ 2
+_ =
+  begin
+    5 ∸ 3
+  ≡⟨⟩
+    4 ∸ 2
+  ≡⟨⟩
+    3 ∸ 1
+  ≡⟨⟩
+    2 ∸ 0
+  ≡⟨⟩
+    2
   ∎
