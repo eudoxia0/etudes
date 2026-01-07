@@ -1,3 +1,6 @@
 data ℕ : Set where
   zero : ℕ
-  suc  : ℕ → ℕ
+  succ : ℕ → ℕ
+
+one: ℕ
+one = suc (zero)
