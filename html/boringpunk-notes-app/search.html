@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Search: "SN1 mechanism" | Personal Knowledge Portal</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: Tahoma, Verdana, "MS Sans Serif", Geneva, sans-serif;
+    font-size: 11px;
+    color: #000;
+    background: #d4d0c8 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='4' height='4' fill='%23d4d0c8'/><rect width='1' height='1' fill='%23c8c4bc'/></svg>");
+  }
+  a { color: #0033cc; text-decoration: underline; cursor: pointer; }
+  a:visited { color: #551a8b; }
+  a:hover { color: #ff0000; }
+
+  /* ——— Banner ——— */
+  .banner {
+    height: 62px;
+    background: #003d7a linear-gradient(to bottom, #0058b8 0%, #003d7a 55%, #002855 100%);
+    border-bottom: 2px solid #001a3d;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+  }
+  .banner .logo {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, #ffbe3d, #d48a00);
+    border: 2px solid #fff;
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, serif;
+    font-weight: bold; font-style: italic;
+    font-size: 22px; color: #003d7a;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(0,0,0,0.3);
+    margin-right: 12px;
+  }
+  .banner .title-area { flex: 1; }
+  .banner .title-area .t1 {
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 18px; font-weight: bold;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  }
+  .banner .title-area .t2 {
+    font-size: 10px; color: #b8d4ff; margin-top: 2px; font-style: italic;
+  }
+  .banner .user-area { text-align: right; font-size: 10px; color: #e0ecff; }
+  .banner .user-area .u1 { font-weight: bold; color: #fff; }
+  .banner .user-area a { color: #ffcc66; }
+
+  /* ——— Subnav ——— */
+  .subnav {
+    background: linear-gradient(to bottom, #eaeaea 0%, #d4d0c8 100%);
+    border-bottom: 1px solid #8a8a8a;
+    height: 26px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 8px;
+  }
+  .subnav .tab {
+    display: inline-block;
+    padding: 4px 14px 5px;
+    margin-right: 2px;
+    background: linear-gradient(to bottom, #f4f4f4, #d8d4cc);
+    border: 1px solid #8a8a8a;
+    border-bottom: none;
+    font-size: 11px;
+    color: #222;
+    cursor: pointer;
+    position: relative;
+    top: 1px;
+  }
+  .subnav .tab:hover { background: linear-gradient(to bottom, #fff, #e4e0d8); }
+  .subnav .tab.active {
+    background: #ece9d8;
+    font-weight: bold;
+    padding-bottom: 6px;
+    top: 0;
+  }
+
+  /* ——— Breadcrumb ——— */
+  .breadcrumb {
+    background: #ece9d8;
+    padding: 4px 10px;
+    border-bottom: 1px solid #b8b4a8;
+    font-size: 11px;
+  }
+  .breadcrumb .sep { color: #888; margin: 0 5px; }
+  .breadcrumb .current { color: #000; font-weight: bold; }
+  .breadcrumb-right {
+    float: right;
+    color: #555;
+    font-size: 10px;
+  }
+
+  /* ——— Search hero ——— */
+  .search-hero {
+    background: linear-gradient(to bottom, #e8eef7, #c8d4e8);
+    border-bottom: 1px solid #6b83a8;
+    padding: 12px 16px;
+  }
+  .search-bar {
+    display: flex;
+    max-width: 900px;
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,0.2);
+  }
+  .search-bar input {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 5px 8px;
+    border: 1px solid #1a3a6b;
+    background: #fff;
+    flex: 1;
+    outline: none;
+  }
+  .search-bar .sbtn {
+    background: linear-gradient(to bottom, #d4e8ff, #8ab4e8);
+    border: 1px solid #1a3a6b;
+    border-left: none;
+    color: #002855;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 0 18px;
+    cursor: pointer;
+  }
+  .search-bar .sbtn:hover { background: linear-gradient(to bottom, #e8f4ff, #a0c4f4); }
+  .search-bar .sbtn.sec {
+    background: linear-gradient(to bottom, #fff, #e0dcd4);
+    border-color: #8a8a8a;
+    color: #000;
+    font-weight: normal;
+  }
+
+  .search-opts {
+    margin-top: 6px;
+    font-size: 10px;
+    color: #333;
+    max-width: 900px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .search-opts label { cursor: pointer; }
+  .search-opts input[type=checkbox] { vertical-align: -1px; margin-right: 3px; }
+  .search-opts .advanced {
+    margin-left: auto;
+    font-size: 10px;
+  }
+
+  /* ——— Layout ——— */
+  .wrap { padding: 10px; }
+  .layout {
+    display: grid;
+    grid-template-columns: 220px 1fr 240px;
+    gap: 10px;
+  }
+
+  /* ——— Web parts ——— */
+  .webpart {
+    background: #fff;
+    border: 1px solid #a8a8a8;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 0 #b8b8b8;
+  }
+  .webpart-header {
+    background: linear-gradient(to bottom, #e8eef7 0%, #c8d4e8 100%);
+    border-bottom: 1px solid #6b83a8;
+    padding: 4px 8px;
+    font-weight: bold;
+    font-size: 11px;
+    color: #1a3a6b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .webpart-header .actions { font-size: 10px; font-weight: normal; }
+  .webpart-body { padding: 6px 8px; }
+
+  /* ——— Faceted filters (left pane) ——— */
+  .facet { margin-bottom: 10px; }
+  .facet-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: #1a3a6b;
+    background: #f4f4ec;
+    padding: 3px 8px;
+    border-bottom: 1px dotted #c8c8b8;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 10px;
+  }
+  .facet-list { list-style: none; margin: 0; padding: 0; }
+  .facet-list li {
+    padding: 2px 8px;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .facet-list li:hover { background: #ffffcc; }
+  .facet-list li.sel {
+    background: #fff3b8;
+    font-weight: bold;
+  }
+  .facet-list li input { margin-right: 4px; vertical-align: -1px; }
+  .facet-list li .count {
+    color: #888;
+    font-size: 10px;
+    font-family: "Courier New", monospace;
+  }
+  .facet-list li.sel .count { color: #5a3a00; }
+
+  .active-filters {
+    padding: 4px 6px;
+    font-size: 10px;
+  }
+  .chip {
+    display: inline-block;
+    background: #fff3b8;
+    border: 1px solid #c8a040;
+    padding: 1px 5px 1px 5px;
+    margin: 2px 3px 2px 0;
+    font-size: 10px;
+    color: #5a3a00;
+  }
+  .chip .x {
+    font-weight: bold;
+    color: #8a4a00;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+  .chip .x:hover { color: #ff0000; }
+
+  /* ——— Results meta row ——— */
+  .results-meta {
+    background: #ffffe0;
+    border: 1px solid #d4c878;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: #5a3a00;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .results-meta b { color: #000; }
+  .results-meta .q {
+    background: #fff;
+    padding: 0 4px;
+    border: 1px solid #c8a040;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    color: #8a0000;
+  }
+  .results-meta .sort select {
+    font-family: inherit;
+    font-size: 10px;
+    padding: 1px 3px;
+    border: 1px solid #888;
+  }
+
+  /* "Did you mean" */
+  .did-you-mean {
+    padding: 4px 10px;
+    font-size: 11px;
+    color: #333;
+    margin-bottom: 8px;
+    background: #eaf0fa;
+    border: 1px solid #6b83a8;
+  }
+  .did-you-mean em {
+    font-style: italic;
+    color: #c00;
+    font-weight: bold;
+  }
+
+  /* ——— Featured result (top) ——— */
+  .featured-result {
+    background: linear-gradient(to bottom, #fff8e0 0%, #fff2c8 100%);
+    border: 1px solid #c8a040;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    box-shadow: 1px 1px 0 #c8a040;
+  }
+  .featured-result .kicker {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8a4a00;
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+  .featured-result h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+  }
+  .featured-result h3 a {
+    color: #0033cc;
+    font-size: 14px;
+  }
+  .featured-result .meta {
+    font-size: 10px;
+    color: #5a5a3a;
+    margin: 2px 0;
+  }
+  .featured-result .snippet {
+    font-size: 11px;
+    color: #222;
+    margin-top: 3px;
+    line-height: 1.5;
+  }
+  .featured-result .snippet b { background: #ffe488; padding: 0 1px; }
+
+  /* ——— Result list ——— */
+  .result-list { list-style: none; margin: 0; padding: 0; }
+  .result {
+    background: #fff;
+    border: 1px solid #c8c8c8;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    box-shadow: 1px 1px 0 #d8d8d8;
+  }
+  .result:hover { background: #ffffee; border-color: #b8b800; }
+  .result .icon-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2px;
+  }
+  .result .type-badge {
+    display: inline-block;
+    background: #e8eef7;
+    border: 1px solid #8098b8;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 0 4px;
+    color: #1a3a6b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .result .type-badge.page { background: #e8eef7; border-color: #8098b8; color: #1a3a6b; }
+  .result .type-badge.notebook { background: #fff5d4; border-color: #c8a040; color: #5a3a00; }
+  .result .type-badge.attachment { background: #eaf4e8; border-color: #6b9a3a; color: #2a5a10; }
+  .result .type-badge.question { background: #ffe4e4; border-color: #c86060; color: #8a0000; }
+  .result .icon-bar .ic { font-size: 13px; }
+  .result h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: normal;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+  }
+  .result h3 a {
+    color: #0033cc;
+    text-decoration: underline;
+  }
+  .result h3 a:visited { color: #551a8b; }
+  .result .path {
+    font-size: 10px;
+    color: #2a5a10;
+    font-family: Verdana, sans-serif;
+    margin: 1px 0 3px;
+  }
+  .result .path a { color: #2a5a10; font-size: 10px; }
+  .result .path .sep { color: #666; }
+  .result .snippet {
+    font-size: 11px;
+    color: #333;
+    line-height: 1.5;
+    margin: 3px 0;
+  }
+  .result .snippet b { background: #ffe488; padding: 0 1px; font-weight: bold; color: #000; }
+  .result .meta-row {
+    font-size: 10px;
+    color: #777;
+    margin-top: 3px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .result .meta-row b { color: #333; }
+  .result .meta-row .arch-flag {
+    color: #8a4a00;
+    font-weight: bold;
+    background: #fff3b8;
+    padding: 0 4px;
+    border: 1px solid #c8a040;
+  }
+  .result.archived {
+    background: #f8f8f0;
+    opacity: 0.92;
+  }
+  .result.archived h3 a { color: #554488; }
+
+  /* Formula preview in snippet */
+  .formula-inline {
+    background: #fafaf4;
+    border: 1px solid #d4d4c4;
+    padding: 1px 4px;
+    font-family: Georgia, "Cambria Math", serif;
+    font-style: italic;
+    font-size: 11px;
+  }
+
+  /* ——— Pagination ——— */
+  .pagination {
+    text-align: center;
+    padding: 12px;
+    font-size: 12px;
+    background: #ece9d8;
+    border: 1px solid #a8a8a8;
+    margin-top: 4px;
+  }
+  .pagination .p-num {
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 0 2px;
+    font-size: 11px;
+    border: 1px solid #a8a8a8;
+    background: linear-gradient(to bottom, #fff, #e8e4dc);
+    color: #0033cc;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .pagination .p-num:hover { background: linear-gradient(to bottom, #fffce0, #f4e8a8); border-color: #c8a040; }
+  .pagination .p-num.current {
+    background: linear-gradient(to bottom, #ffbe3d, #d48a00);
+    color: #003d7a;
+    font-weight: bold;
+    border-color: #8a4a00;
+    cursor: default;
+  }
+  .pagination .p-ellipsis { color: #888; margin: 0 3px; }
+
+  /* ——— Right side: query tools, tips ——— */
+  .right-tip {
+    padding: 6px 8px;
+    font-size: 10px;
+    line-height: 1.6;
+    color: #333;
+  }
+  .right-tip code {
+    background: #f4f4ec;
+    border: 1px solid #d4d4c4;
+    padding: 0 3px;
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    color: #8a0000;
+  }
+  .right-tip .op-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+    margin-top: 4px;
+  }
+  .right-tip .op-table td {
+    padding: 2px 4px;
+    border-bottom: 1px dotted #d8d8d8;
+    vertical-align: top;
+  }
+  .right-tip .op-table td:first-child {
+    width: 90px;
+    white-space: nowrap;
+  }
+
+  /* Recent searches */
+  .recent-q {
+    list-style: none;
+    margin: 0; padding: 0;
+    font-size: 11px;
+  }
+  .recent-q li {
+    padding: 3px 8px;
+    border-bottom: 1px dotted #d8d8d8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .recent-q li:last-child { border-bottom: none; }
+  .recent-q .hits { color: #888; font-size: 10px; font-family: "Courier New", monospace; }
+  .recent-q a { font-size: 11px; }
+
+  /* ——— Footer ——— */
+  .footer {
+    background: linear-gradient(to bottom, #eaeaea, #d4d0c8);
+    border-top: 1px solid #8a8a8a;
+    padding: 6px 10px;
+    margin-top: 10px;
+    font-size: 10px;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<!-- Banner -->
+<div class="banner">
+  <div class="logo">P</div>
+  <div class="title-area">
+    <div class="t1">Personal Knowledge Portal</div>
+    <div class="t2">Enterprise Edition v3.2.1 &nbsp;|&nbsp; A Knowledge Management Solution for the Individual</div>
+  </div>
+  <div class="user-area">
+    Welcome back, <span class="u1">J. Researcher</span><br/>
+    <a>My Profile</a> &nbsp;|&nbsp; <a>Help</a> &nbsp;|&nbsp; <a>Sign Out</a>
+  </div>
+</div>
+
+<!-- Subnav -->
+<div class="subnav">
+  <span class="tab">Home</span>
+  <span class="tab">Notebooks</span>
+  <span class="tab">Attachments Library</span>
+  <span class="tab">Recent Activity</span>
+  <span class="tab active">Search</span>
+  <span class="tab">Site Settings</span>
+</div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <span class="breadcrumb-right">Query executed at 09:47:22 AM on 04/22/2026 &nbsp;|&nbsp; Full-text index v2.1</span>
+  <a>Home</a> <span class="sep">&gt;</span>
+  <a>Search</a> <span class="sep">&gt;</span>
+  <span class="current">Results for: SN1 mechanism</span>
+</div>
+
+<!-- Search hero -->
+<div class="search-hero">
+  <form class="search-bar" onsubmit="return false;">
+    <input type="text" value="SN1 mechanism" />
+    <button class="sbtn">🔍 Search</button>
+    <button class="sbtn sec" style="padding: 0 10px;">Clear</button>
+  </form>
+  <div class="search-opts">
+    <label><input type="checkbox" checked/> Pages</label>
+    <label><input type="checkbox" checked/> Notebooks</label>
+    <label><input type="checkbox" checked/> Attachments</label>
+    <label><input type="checkbox"/> Include archived</label>
+    <label><input type="checkbox" checked/> Match whole words</label>
+    <label><input type="checkbox"/> Case sensitive</label>
+    <span class="advanced">
+      <a><b>Advanced search »</b></a> &nbsp;|&nbsp; <a>Search tips</a> &nbsp;|&nbsp; <a>Saved searches (4)</a>
+    </span>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="layout">
+
+  <!-- ===== LEFT: Facets ===== -->
+  <div class="left-col">
+
+    <div class="webpart">
+      <div class="webpart-header">
+        <span>🔎 Refine Results</span>
+        <span class="actions">[<a>Reset</a>]</span>
+      </div>
+      <div class="webpart-body" style="padding: 0;">
+
+        <div class="active-filters" style="background: #fff8e0; border-bottom: 1px solid #c8a040;">
+          <div style="font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; color: #8a4a00; font-weight: bold; margin-bottom: 3px;">Active filters</div>
+          <span class="chip">Status: Active <span class="x">×</span></span>
+          <span class="chip">Notebook: Chemistry Study Notes <span class="x">×</span></span>
+        </div>
+
+        <div class="facet">
+          <div class="facet-title">Result Type</div>
+          <ul class="facet-list">
+            <li class="sel"><span><input type="checkbox" checked/>📄 Page</span> <span class="count">12</span></li>
+            <li><span><input type="checkbox"/>📓 Notebook</span> <span class="count">3</span></li>
+            <li><span><input type="checkbox"/>📎 Attachment</span> <span class="count">2</span></li>
+            <li><span><input type="checkbox"/>❓ Open Question</span> <span class="count">4</span></li>
+            <li><span><input type="checkbox"/>💬 Margin Note</span> <span class="count">8</span></li>
+          </ul>
+        </div>
+
+        <div class="facet">
+          <div class="facet-title">Notebook</div>
+          <ul class="facet-list">
+            <li class="sel"><span><input type="checkbox" checked/>📕 Chemistry Study Notes</span> <span class="count">23</span></li>
+            <li><span><input type="checkbox"/>📕 Chemistry 101 (arch.)</span> <span class="count">5</span></li>
+            <li><span><input type="checkbox"/>📕 Organic Chem Fall'25 (arch.)</span> <span class="count">3</span></li>
+            <li><span><input type="checkbox"/>📓 Research Journal Q2</span> <span class="count">1</span></li>
+            <li style="color:#888;"><a>Show 2 more...</a></li>
+          </ul>
+        </div>
+
+        <div class="facet">
+          <div class="facet-title">Status</div>
+          <ul class="facet-list">
+            <li class="sel"><span><input type="radio" name="st" checked/>Active only</span> <span class="count">23</span></li>
+            <li><span><input type="radio" name="st"/>Archived only</span> <span class="count">10</span></li>
+            <li><span><input type="radio" name="st"/>All</span> <span class="count">33</span></li>
+          </ul>
+        </div>
+
+        <div class="facet">
+          <div class="facet-title">Date Modified</div>
+          <ul class="facet-list">
+            <li><span><input type="radio" name="dt"/>Today</span> <span class="count">3</span></li>
+            <li><span><input type="radio" name="dt"/>This week</span> <span class="count">7</span></li>
+            <li><span><input type="radio" name="dt"/>This month</span> <span class="count">14</span></li>
+            <li class="sel"><span><input type="radio" name="dt" checked/>This year</span> <span class="count">23</span></li>
+            <li><span><input type="radio" name="dt"/>All time</span> <span class="count">33</span></li>
+            <li><span><input type="radio" name="dt"/>Custom range...</span> <span class="count"></span></li>
+          </ul>
+        </div>
+
+        <div class="facet">
+          <div class="facet-title">Tags</div>
+          <ul class="facet-list">
+            <li><span><input type="checkbox"/>mechanisms</span> <span class="count">12</span></li>
+            <li><span><input type="checkbox"/>CHEM 202</span> <span class="count">8</span></li>
+            <li><span><input type="checkbox"/>exam-relevant</span> <span class="count">6</span></li>
+            <li><span><input type="checkbox"/>organic</span> <span class="count">5</span></li>
+            <li><span><input type="checkbox"/>draft</span> <span class="count">2</span></li>
+          </ul>
+        </div>
+
+        <div class="facet">
+          <div class="facet-title">Has Attachment?</div>
+          <ul class="facet-list">
+            <li><span><input type="checkbox"/>Yes (📷 image)</span> <span class="count">4</span></li>
+            <li><span><input type="checkbox"/>No</span> <span class="count">19</span></li>
+          </ul>
+        </div>
+
+        <div class="facet">
+          <div class="facet-title">Contains Formula?</div>
+          <ul class="facet-list">
+            <li><span><input type="checkbox"/>Yes (LaTeX / math)</span> <span class="count">9</span></li>
+            <li><span><input type="checkbox"/>No</span> <span class="count">14</span></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>⚡ Saved Searches</span></div>
+      <div class="webpart-body" style="font-size: 11px; line-height: 1.8;">
+        <a>★ My open questions</a><br/>
+        <a>★ Draft pages</a><br/>
+        <a>★ Pages w/ no links</a><br/>
+        <a>★ Pages unedited &gt; 30d</a><br/>
+        <span style="font-size: 10px;"><a>» Manage saved searches</a></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== MAIN: Results ===== -->
+  <div class="main-col">
+
+    <!-- Results meta -->
+    <div class="results-meta">
+      <span>
+        Results <b>1&ndash;12</b> of about <b>147</b> for <span class="q">SN1 mechanism</span> &nbsp;·&nbsp; search took <b>0.08 seconds</b>
+      </span>
+      <span class="sort">
+        Sort by:
+        <select>
+          <option>Relevance</option>
+          <option>Date modified (newest)</option>
+          <option>Date modified (oldest)</option>
+          <option>Date created</option>
+          <option>Notebook (A-Z)</option>
+          <option>Word count</option>
+        </select>
+      </span>
+    </div>
+
+    <!-- Did you mean -->
+    <div class="did-you-mean">
+      <b>Did you mean:</b>
+      <a><em>S<sub>N</sub>1 mechanism</em></a> &nbsp;·&nbsp;
+      <a><em>SN1 reaction</em></a> &nbsp;·&nbsp;
+      <a><em>SN1 vs SN2</em></a>
+      &nbsp;&nbsp;&nbsp;
+      <span style="color: #777; font-size: 10px;">(your spelling was treated literally — subscript variants also matched)</span>
+    </div>
+
+    <!-- Featured top hit -->
+    <div class="featured-result">
+      <div class="kicker">★ Best Match · High Relevance</div>
+      <h3>
+        <span class="type-badge page" style="background:#fff;border:1px solid #c8a040;color:#8a4a00;">📄 PAGE</span>
+        &nbsp;<a>4.5 Reaction mechanisms — S<sub>N</sub>1, S<sub>N</sub>2, E1, E2</a>
+      </h3>
+      <div class="meta">
+        📂 Chemistry Study Notes <span style="color:#888;">›</span> Module 4 — Organic Chemistry
+        &nbsp;·&nbsp; <b>1,876 words</b> &nbsp;·&nbsp; modified <b>6 min ago</b>
+        &nbsp;·&nbsp; 5 internal links &nbsp;·&nbsp; 1 attachment
+      </div>
+      <div class="snippet">
+        ...Two steps: (1) slow ionization to a carbocation; (2) fast nucleophilic capture. The carbocation is planar (sp²), so the nucleophile can attack either face &rarr; racemization at a chiral center... <b>SN1</b> favored by stabilized carbocation (3°, allylic, benzylic), polar protic solvent, weak nucleophile. The <b>mechanism</b> proceeds via <span class="formula-inline">R-LG → R⁺ + LG⁻</span> as the rate-determining step, where rate<sub>SN1</sub> = k[R-LG]. Carbocation stability is the entire ball game: 3° &gt; 2° ≫ 1°...
+      </div>
+      <div class="meta" style="margin-top:4px;">
+        🏷️ <a>mechanisms</a>, <a>CHEM 202</a>, <a>organic</a>, <a>exam-relevant</a>
+        &nbsp;·&nbsp; <a>Open page →</a>
+      </div>
+    </div>
+
+    <!-- Standard results -->
+    <ul class="result-list">
+
+      <li class="result">
+        <div class="icon-bar">
+          <span class="type-badge page">📄 PAGE</span>
+          <span style="font-size:10px;color:#888;">relevance 94%</span>
+        </div>
+        <h3><a>4.6 Problem set 4 — worked solutions</a></h3>
+        <div class="path">
+          📕 Chemistry Study Notes <span class="sep">›</span> Module 4 — Organic Chemistry <span class="sep">›</span> 4.6 Problem set 4
+        </div>
+        <div class="snippet">
+          ...Problem 4.7 asks for the expected product of tert-butyl bromide in aqueous acetone. This is a classic <b>SN1</b> / E1 competition: the tertiary substrate refuses SN2, and the weak nucleophile (water) plus polar protic solvent favors ionization to a carbocation. Per the <b>SN1 mechanism</b>, we expect <span class="formula-inline">k = k<sub>1</sub>[R-LG]</span> kinetics, racemization at the chiral center, and possible hydride rearrangement...
+        </div>
+        <div class="meta-row">
+          <span>🔗 links to <a>4.5 SN1/SN2/E1/E2</a></span>
+          <span>📝 <b>960 words</b></span>
+          <span>⏱ modified <b>2 days ago</b></span>
+          <span>🏷️ <a>problem-set</a>, <a>CHEM 202</a></span>
+        </div>
+      </li>
+
+      <li class="result">
+        <div class="icon-bar">
+          <span class="type-badge question">❓ QUESTION</span>
+          <span style="font-size:10px;color:#888;">relevance 91%</span>
+        </div>
+        <h3><a>ΔG cutoff where SN1 becomes viable for 1° center?</a></h3>
+        <div class="path">
+          📕 Chemistry Study Notes <span class="sep">›</span> Module 4 <span class="sep">›</span> 4.5 SN1/SN2/E1/E2 <span class="sep">›</span> Open Questions
+        </div>
+        <div class="snippet">
+          ...The textbook says allylic and benzylic primary substrates undergo <b>SN1</b> despite being 1° — because of resonance stabilization of the carbocation. But how do we quantify "enough resonance stabilization"? Is there a rule-of-thumb ΔG<sub>f</sub>° cutoff for the carbocation where the <b>SN1 mechanism</b> becomes viable for a 1° center?...
+        </div>
+        <div class="meta-row">
+          <span style="color:#8a0000;font-weight:bold;">❓ Open question · ask Prof. K</span>
+          <span>⏱ created <b>today</b></span>
+          <span>🎯 next office hours: Thu Apr 23, 2:00 PM</span>
+        </div>
+      </li>
+
+      <li class="result">
+        <div class="icon-bar">
+          <span class="type-badge page">📄 PAGE</span>
+          <span style="font-size:10px;color:#888;">relevance 87%</span>
+        </div>
+        <h3><a>⭐ Exam Review — Mechanism Cheat Sheet</a></h3>
+        <div class="path">
+          📕 Chemistry Study Notes <span class="sep">›</span> ⭐ Exam Review &amp; Cheat Sheets
+        </div>
+        <div class="snippet">
+          ...one-page synthesis of SN/E mechanisms for the final. Rate laws: rate<sub><b>SN1</b></sub> = k[R-LG], first-order. Rate<sub>SN2</sub> = k[R-LG][Nu⁻], second-order. Stereochemistry: <b>SN1</b> racemizes (planar carbocation, attack from either face), SN2 inverts (Walden). The <b>mechanism</b> choice depends on 4 variables: substrate class, nucleophile/base strength, solvent polarity &amp; protonation, temperature...
+        </div>
+        <div class="meta-row">
+          <span>🔗 <b>28 internal links</b> (hub page)</span>
+          <span>📝 <b>1,204 words</b></span>
+          <span>⏱ modified <b>5 days ago</b></span>
+          <span>🏷️ <a>exam-relevant</a></span>
+        </div>
+      </li>
+
+      <li class="result">
+        <div class="icon-bar">
+          <span class="type-badge page">📄 PAGE</span>
+          <span style="font-size:10px;color:#888;">relevance 82%</span>
+        </div>
+        <h3><a>3.2 Rate laws &amp; reaction order</a></h3>
+        <div class="path">
+          📕 Chemistry Study Notes <span class="sep">›</span> Module 3 — Thermodynamics &amp; Kinetics <span class="sep">›</span> 3.2 Rate laws
+        </div>
+        <div class="snippet">
+          ...For a first-order reaction such as the <b>SN1 mechanism</b>'s rate-determining ionization step, the integrated rate law is <span class="formula-inline">ln[A] = ln[A]<sub>0</sub> − kt</span> and the half-life t<sub>1/2</sub> = ln(2)/k is independent of initial concentration. Contrast with the second-order kinetics of SN2...
+        </div>
+        <div class="meta-row">
+          <span>🔗 linked from <a>4.5 SN1/SN2/E1/E2</a></span>
+          <span>📝 <b>1,087 words</b></span>
+          <span>⏱ modified <b>Mar 10</b></span>
+          <span>🏷️ <a>kinetics</a></span>
+        </div>
+      </li>
+
+      <li class="result">
+        <div class="icon-bar">
+          <span class="type-badge attachment">📎 ATTACHMENT</span>
+          <span style="font-size:10px;color:#888;">relevance 76%</span>
+        </div>
+        <h3><a>🖼️ sn1-vs-sn2-decision.png</a></h3>
+        <div class="path">
+          📕 Chemistry Study Notes <span class="sep">›</span> embedded in <a>4.5 SN1/SN2/E1/E2</a>
+        </div>
+        <div class="snippet">
+          Decision flowchart image from lecture slides. File contains OCR text: ...is substrate tertiary? yes → consider <b>SN1</b>/E1 ... nucleophile strong? ... solvent protic? favors <b>SN1 mechanism</b> ... bulky base? yes → E2 Hofmann, no → Zaitsev...
+        </div>
+        <div class="meta-row">
+          <span>🖼️ <b>267 KB · PNG · 1024×768</b></span>
+          <span>⏱ uploaded <b>2 days ago</b></span>
+          <span>🔗 referenced by <b>3 pages</b></span>
+        </div>
+      </li>
+
+      <li class="result">
+        <div class="icon-bar">
+          <span class="type-badge page">📄 PAGE</span>
+          <span style="font-size:10px;color:#888;">relevance 71%</span>
+        </div>
+        <h3><a>4.3 Stereochemistry — chirality &amp; R/S</a></h3>
+        <div class="path">
+          📕 Chemistry Study Notes <span class="sep">›</span> Module 4 — Organic Chemistry
+        </div>
+        <div class="snippet">
+          ...the stereochemical consequences of <b>SN1</b> versus SN2 are the clearest "payoff" of understanding the <b>mechanism</b>. In SN2, the backside attack gives <i>inversion</i> of configuration (Walden inversion). In <b>SN1</b>, the planar carbocation intermediate loses stereochemical information entirely, producing racemic mixture (usually 50:50, sometimes skewed by ion-pair effects)...
+        </div>
+        <div class="meta-row">
+          <span>🔗 linked from <a>4.5</a></span>
+          <span>📝 <b>1,322 words</b></span>
+          <span>⏱ modified <b>Apr 12</b></span>
+          <span>🏷️ <a>stereochemistry</a></span>
+        </div>
+      </li>
+
+      <li class="result archived">
+        <div class="icon-bar">
+          <span class="type-badge notebook">📓 NOTEBOOK</span>
+          <span class="arch-flag" style="font-size:9px;">ARCHIVED</span>
+          <span style="font-size:10px;color:#888;">relevance 68%</span>
+        </div>
+        <h3><a>Organic Chem (Fall '25)</a></h3>
+        <div class="path">
+          🗄️ Archived · closed Dec 18, 2025 · 87 pages, 22 attachments
+        </div>
+        <div class="snippet">
+          Previous notebook containing introductory material on reaction <b>mechanisms</b>, including early treatment of <b>SN1</b>/SN2 in a simpler organic context. Now superseded by current Chemistry Study Notes. Contains 3 page hits for "<b>SN1 mechanism</b>"...
+        </div>
+        <div class="meta-row">
+          <span>📚 <b>Closed: Dec 18, 2025</b></span>
+          <span>📝 <b>87 pages total</b></span>
+          <span style="color:#8a4a00;">⚠ Not included by default — <a>show archive results</a></span>
+        </div>
+      </li>
+
+      <li class="result">
+        <div class="icon-bar">
+          <span class="type-badge page">📄 PAGE</span>
+          <span style="font-size:10px;color:#888;">relevance 64%</span>
+        </div>
+        <h3><a>4.4 Open questions on stereochemistry</a></h3>
+        <div class="path">
+          📕 Chemistry Study Notes <span class="sep">›</span> Module 4
+        </div>
+        <div class="snippet">
+          ...connected to the <b>SN1 mechanism</b> discussion in 4.5: since racemization is the "textbook" outcome, why do some real <b>SN1</b> reactions show partial retention or inversion? Ion-pair effects. The Winstein intimate-ion-pair/solvent-separated-ion-pair model explains it, but the details remain fuzzy...
+        </div>
+        <div class="meta-row">
+          <span style="color:#8a0000;">❓ 3 open questions on this page</span>
+          <span>⏱ modified <b>8 days ago</b></span>
+        </div>
+      </li>
+
+      <li class="result">
+        <div class="icon-bar">
+          <span class="type-badge page">📄 PAGE</span>
+          <span style="font-size:10px;color:#888;">relevance 58%</span>
+        </div>
+        <h3><a>4.1 Functional groups — reference sheet</a></h3>
+        <div class="path">
+          📕 Chemistry Study Notes <span class="sep">›</span> Module 4
+        </div>
+        <div class="snippet">
+          ...<b>leaving-group</b> ability ranks similarly whether the reaction is <b>SN1</b> or SN2: I⁻ &gt; Br⁻ &gt; Cl⁻ ≫ F⁻ for halides. The relative rates for a given <b>mechanism</b> differ, but the ranking is the same. For tosylates, the rate boost is dramatic...
+        </div>
+        <div class="meta-row">
+          <span>📝 <b>1,456 words</b></span>
+          <span>⏱ modified <b>Apr 1</b></span>
+          <span>🏷️ <a>reference</a>, <a>organic</a></span>
+        </div>
+      </li>
+
+      <li class="result archived">
+        <div class="icon-bar">
+          <span class="type-badge page">📄 PAGE</span>
+          <span class="arch-flag" style="font-size:9px;">ARCHIVED</span>
+          <span style="font-size:10px;color:#888;">relevance 55%</span>
+        </div>
+        <h3><a>Lecture 18 — Substitution reactions (old notes)</a></h3>
+        <div class="path">
+          📕 Organic Chem (Fall '25) · archived · Lecture Notes
+        </div>
+        <div class="snippet">
+          ...prof introduced <b>SN1</b> by way of the t-butyl bromide + water experiment. Rate is zero-order in water (the nucleophile), first-order in substrate — clear signal of a unimolecular rate-determining step. The <b>mechanism</b> was drawn in three arrows on the board...
+        </div>
+        <div class="meta-row">
+          <span>📚 notebook archived <b>Dec 2025</b></span>
+          <span>📝 <b>642 words</b></span>
+        </div>
+      </li>
+
+      <li class="result">
+        <div class="icon-bar">
+          <span class="type-badge page">📄 PAGE</span>
+          <span style="font-size:10px;color:#888;">relevance 52%</span>
+        </div>
+        <h3><a>4.7 Addition reactions (draft)</a></h3>
+        <div class="path">
+          📕 Chemistry Study Notes <span class="sep">›</span> Module 4 <span class="sep">›</span> <i>(draft)</i>
+        </div>
+        <div class="snippet">
+          ...Markovnikov addition of HX to an alkene proceeds through a carbocation intermediate &mdash; mechanistically closer to <b>SN1</b> than to a concerted pathway. The <b>mechanism</b>'s resemblance to SN1 is not accidental: both hinge on forming the most stable carbocation...
+        </div>
+        <div class="meta-row">
+          <span style="color:#c00;font-weight:bold;">● DRAFT</span>
+          <span>📝 <b>in progress</b></span>
+          <span>⏱ being edited <b>now</b></span>
+        </div>
+      </li>
+
+      <li class="result">
+        <div class="icon-bar">
+          <span class="type-badge page">📄 PAGE</span>
+          <span style="font-size:10px;color:#888;">relevance 47%</span>
+        </div>
+        <h3><a>Exam review — summary of Q1</a></h3>
+        <div class="path">
+          📓 Research Journal Q2 <span class="sep">›</span> Review notes
+        </div>
+        <div class="snippet">
+          Brief cross-reference to <b>SN1 mechanism</b> material from my Chemistry notebook. Moved relevant bits here because I was writing about epistemic methodology in the sciences and used the <b>SN1</b>/SN2 decision as an example of heuristic-vs-first-principles reasoning...
+        </div>
+        <div class="meta-row">
+          <span>🔗 links to <a>4.5 SN1/SN2</a></span>
+          <span>📝 <b>892 words</b></span>
+          <span>⏱ modified <b>Apr 19</b></span>
+        </div>
+      </li>
+
+    </ul>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <a class="p-num">‹‹ Previous</a>
+      <a class="p-num current">1</a>
+      <a class="p-num">2</a>
+      <a class="p-num">3</a>
+      <a class="p-num">4</a>
+      <a class="p-num">5</a>
+      <span class="p-ellipsis">...</span>
+      <a class="p-num">13</a>
+      <a class="p-num">Next ››</a>
+      <div style="font-size: 10px; color: #666; margin-top: 6px;">
+        Results per page:
+        <select style="font-size:10px;"><option>12</option><option>25</option><option>50</option><option>100</option></select>
+        &nbsp;|&nbsp;
+        <a>Export results to CSV</a> &nbsp;|&nbsp;
+        <a>Save this search</a> &nbsp;|&nbsp;
+        <a>Subscribe to RSS feed 📡</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== RIGHT: Tips, recent, tools ===== -->
+  <div class="right-col">
+
+    <div class="webpart">
+      <div class="webpart-header"><span>💡 Search Tips</span></div>
+      <div class="right-tip">
+        Refine your search with these operators:
+        <table class="op-table">
+          <tr><td><code>"exact phrase"</code></td><td>match words in order</td></tr>
+          <tr><td><code>word1 OR word2</code></td><td>either term</td></tr>
+          <tr><td><code>-exclude</code></td><td>exclude a term</td></tr>
+          <tr><td><code>tag:name</code></td><td>filter by tag</td></tr>
+          <tr><td><code>notebook:X</code></td><td>limit to notebook</td></tr>
+          <tr><td><code>type:question</code></td><td>only ❓ pages</td></tr>
+          <tr><td><code>before:2026-01</code></td><td>date range</td></tr>
+          <tr><td><code>has:formula</code></td><td>contains LaTeX</td></tr>
+          <tr><td><code>has:image</code></td><td>with attachment</td></tr>
+          <tr><td><code>orphan:true</code></td><td>no incoming links</td></tr>
+        </table>
+        <p style="margin-top: 6px;">Try: <code>SN1 tag:exam-relevant has:formula</code></p>
+        <p style="text-align: right;"><a>Full query syntax reference »</a></p>
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>⏱ Your Recent Searches</span></div>
+      <ul class="recent-q">
+        <li><a>SN1 mechanism</a> <span class="hits">147</span></li>
+        <li><a>carbocation stability</a> <span class="hits">42</span></li>
+        <li><a>Zaitsev rule</a> <span class="hits">18</span></li>
+        <li><a>ΔG activation energy</a> <span class="hits">67</span></li>
+        <li><a>tag:exam-relevant</a> <span class="hits">94</span></li>
+        <li><a>functional groups</a> <span class="hits">53</span></li>
+        <li><a>Faraday</a> <span class="hits">3</span></li>
+      </ul>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>📈 Related Searches</span></div>
+      <div class="right-tip" style="line-height: 2;">
+        People who searched "SN1 mechanism" also searched:<br/>
+        <a>» SN2 mechanism</a><br/>
+        <a>» E1 elimination</a><br/>
+        <a>» carbocation rearrangement</a><br/>
+        <a>» Walden inversion</a><br/>
+        <a>» solvolysis</a><br/>
+        <a>» polar protic solvents</a>
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>🔔 Search Alerts</span></div>
+      <div class="right-tip">
+        <p>Get notified when new pages matching this query are added.</p>
+        <div style="text-align: center; margin-top: 6px;">
+          <span style="display:inline-block;padding:3px 14px;background:linear-gradient(to bottom,#d4e8ff,#8ab4e8);border:1px solid #4a7ac8;color:#002855;font-weight:bold;font-size:11px;cursor:pointer;">🔔 Alert me</span>
+        </div>
+        <p style="margin-top: 6px; font-size: 10px;">Current alerts: <b>3 active</b> · <a>Manage »</a></p>
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>📊 Query Stats</span></div>
+      <div class="right-tip">
+        <table class="op-table">
+          <tr><td>Query:</td><td><code>SN1 mechanism</code></td></tr>
+          <tr><td>Matched:</td><td><b>147 items</b></td></tr>
+          <tr><td>Indexed:</td><td>1,346 pages</td></tr>
+          <tr><td>Duration:</td><td>0.08 sec</td></tr>
+          <tr><td>Index size:</td><td>42.1 MB</td></tr>
+          <tr><td>Last rebuild:</td><td>09:32 AM</td></tr>
+        </table>
+        <p style="margin-top: 6px; text-align: center;">
+          <a style="font-size:10px;">Rebuild index now</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div>
+    &copy; 2026 Personal Knowledge Portal &nbsp;|&nbsp; v3.2.1 (build 20260418)
+    &nbsp;|&nbsp; <a>Terms of Use</a>
+    &nbsp;|&nbsp; <a>Privacy Policy</a>
+    &nbsp;|&nbsp; <a>Accessibility</a>
+  </div>
+  <div>
+    Full-text index: Lucene-compatible &nbsp;|&nbsp; Database: SQLite 3.42 (FTS5) &nbsp;|&nbsp; ✓ Best viewed in Internet Explorer 7+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>My Dashboard | Personal Knowledge Portal</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: Tahoma, Verdana, "MS Sans Serif", Geneva, sans-serif;
+    font-size: 11px;
+    color: #000;
+    background: #d4d0c8 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='4' height='4' fill='%23d4d0c8'/><rect width='1' height='1' fill='%23c8c4bc'/></svg>");
+  }
+  a { color: #0033cc; text-decoration: underline; cursor: pointer; }
+  a:visited { color: #551a8b; }
+  a:hover { color: #ff0000; }
+
+  /* ——— Banner ——— */
+  .banner {
+    height: 62px;
+    background: #003d7a linear-gradient(to bottom, #0058b8 0%, #003d7a 55%, #002855 100%);
+    border-bottom: 2px solid #001a3d;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+  }
+  .banner .logo {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, #ffbe3d, #d48a00);
+    border: 2px solid #fff;
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, serif;
+    font-weight: bold; font-style: italic;
+    font-size: 22px; color: #003d7a;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(0,0,0,0.3);
+    margin-right: 12px;
+  }
+  .banner .title-area { flex: 1; }
+  .banner .title-area .t1 {
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 18px; font-weight: bold;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  }
+  .banner .title-area .t2 {
+    font-size: 10px; color: #b8d4ff; margin-top: 2px; font-style: italic;
+  }
+
+  /* Search box in banner */
+  .banner-search {
+    display: flex;
+    margin-right: 20px;
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,0.3);
+  }
+  .banner-search input {
+    font-family: inherit;
+    font-size: 11px;
+    padding: 4px 6px;
+    border: 1px solid #001a3d;
+    background: #fff;
+    width: 200px;
+    outline: none;
+  }
+  .banner-search .go {
+    background: linear-gradient(to bottom, #ffbe3d, #d48a00);
+    border: 1px solid #001a3d;
+    border-left: none;
+    color: #003d7a;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 0 10px;
+    cursor: pointer;
+  }
+  .banner-search .go:hover { background: linear-gradient(to bottom, #ffd060, #e89a10); }
+
+  .banner .user-area { text-align: right; font-size: 10px; color: #e0ecff; }
+  .banner .user-area .u1 { font-weight: bold; color: #fff; }
+  .banner .user-area a { color: #ffcc66; }
+
+  /* ——— Subnav ——— */
+  .subnav {
+    background: linear-gradient(to bottom, #eaeaea 0%, #d4d0c8 100%);
+    border-bottom: 1px solid #8a8a8a;
+    height: 26px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 8px;
+  }
+  .subnav .tab {
+    display: inline-block;
+    padding: 4px 14px 5px;
+    margin-right: 2px;
+    background: linear-gradient(to bottom, #f4f4f4, #d8d4cc);
+    border: 1px solid #8a8a8a;
+    border-bottom: none;
+    font-size: 11px;
+    color: #222;
+    cursor: pointer;
+    position: relative;
+    top: 1px;
+  }
+  .subnav .tab:hover { background: linear-gradient(to bottom, #fff, #e4e0d8); }
+  .subnav .tab.active {
+    background: #ece9d8;
+    font-weight: bold;
+    padding-bottom: 6px;
+    top: 0;
+  }
+
+  /* ——— Breadcrumb ——— */
+  .breadcrumb {
+    background: #ece9d8;
+    padding: 4px 10px;
+    border-bottom: 1px solid #b8b4a8;
+    font-size: 11px;
+  }
+  .breadcrumb .sep { color: #888; margin: 0 5px; }
+  .breadcrumb .current { color: #000; font-weight: bold; }
+  .breadcrumb-right {
+    float: right;
+    color: #555;
+    font-size: 10px;
+  }
+
+  /* ——— Welcome banner (dashboard-specific) ——— */
+  .welcome-banner {
+    background: linear-gradient(to bottom, #fff5d4 0%, #f4d98a 100%);
+    border-bottom: 1px solid #c8a040;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .welcome-banner .w-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, #fff, #ffd060);
+    border: 2px solid #c8a040;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(0,0,0,0.15);
+  }
+  .welcome-banner .w-text { flex: 1; }
+  .welcome-banner h2 {
+    margin: 0;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 16px;
+    color: #5a3a00;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.6);
+  }
+  .welcome-banner .sub { font-size: 11px; color: #6a4a10; margin-top: 2px; font-style: italic; }
+  .welcome-banner .w-right {
+    text-align: right;
+    font-size: 10px;
+    color: #5a3a00;
+    line-height: 1.6;
+  }
+
+  /* ——— Layout ——— */
+  .wrap { padding: 10px; }
+  .layout {
+    display: grid;
+    grid-template-columns: 220px 1fr 240px;
+    gap: 10px;
+  }
+  /* Within main column, we have a 2-col sub-grid for web parts */
+  .main-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-content: start;
+  }
+  .main-col .full { grid-column: 1 / -1; }
+
+  /* ——— Web parts ——— */
+  .webpart {
+    background: #fff;
+    border: 1px solid #a8a8a8;
+    box-shadow: 1px 1px 0 #b8b8b8;
+  }
+  .webpart-header {
+    background: linear-gradient(to bottom, #e8eef7 0%, #c8d4e8 100%);
+    border-bottom: 1px solid #6b83a8;
+    padding: 4px 8px;
+    font-weight: bold;
+    font-size: 11px;
+    color: #1a3a6b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .webpart-header .actions { font-size: 10px; font-weight: normal; }
+  .webpart-header .actions a { color: #0033cc; font-weight: normal; }
+  .webpart-body { padding: 6px 8px; }
+
+  /* Orange headers for "announcements" style */
+  .wp-orange .webpart-header {
+    background: linear-gradient(to bottom, #ffe8b8 0%, #f4c870 100%);
+    border-bottom-color: #b88a30;
+    color: #5a3a00;
+  }
+  /* Green */
+  .wp-green .webpart-header {
+    background: linear-gradient(to bottom, #e4f0d4 0%, #a8c88a 100%);
+    border-bottom-color: #5a8a3a;
+    color: #2a5a10;
+  }
+  /* Red */
+  .wp-red .webpart-header {
+    background: linear-gradient(to bottom, #f4d4d4 0%, #e09090 100%);
+    border-bottom-color: #a04040;
+    color: #8a0000;
+  }
+
+  /* ——— Nav pane (left) ——— */
+  .nav-list { list-style: none; margin: 0; padding: 0; font-size: 11px; }
+  .nav-list li a {
+    display: block;
+    padding: 4px 10px 4px 22px;
+    color: #0033cc;
+    text-decoration: none;
+    border-bottom: 1px dotted #d8d8d8;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><polygon points='2,2 8,5 2,8' fill='%230058b8'/></svg>") 8px 6px no-repeat;
+  }
+  .nav-list li a:hover { background-color: #ffffcc; text-decoration: underline; }
+  .nav-list li a.current { background-color: #ffffcc; font-weight: bold; color: #000; }
+  .nav-list li.section {
+    padding: 6px 10px 3px;
+    background: #f4f4ec;
+    border-bottom: 1px solid #d8d8c8;
+    font-weight: bold;
+    font-size: 10px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* ——— Announcements ——— */
+  .announce {
+    background: #fffce0;
+    border: 1px solid #d4c878;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    font-size: 11px;
+  }
+  .announce:last-child { margin-bottom: 0; }
+  .announce .kicker {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: bold;
+    color: #b86a00;
+    margin-bottom: 2px;
+  }
+  .announce.red { background: #ffe4e4; border-color: #c86060; }
+  .announce.red .kicker { color: #8a0000; }
+  .announce.green { background: #eaf4e8; border-color: #6b9a3a; }
+  .announce.green .kicker { color: #2a5a10; }
+  .announce.blue { background: #e4ecfa; border-color: #6b83a8; }
+  .announce.blue .kicker { color: #1a3a6b; }
+
+  /* ——— Recent activity table ——— */
+  .activity-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+  .activity-table td {
+    border-bottom: 1px solid #e8e8e8;
+    padding: 3px 6px;
+    vertical-align: top;
+  }
+  .activity-table tr:nth-child(odd) td { background: #fafafa; }
+  .activity-table tr:hover td { background: #ffffcc; }
+  .activity-table td.ic { width: 20px; text-align: center; font-size: 13px; }
+  .activity-table td.verb { color: #555; font-size: 10px; white-space: nowrap; width: 60px; }
+  .activity-table td.when { color: #777; font-size: 10px; white-space: nowrap; width: 90px; text-align: right; }
+  .activity-table td.ttl a { font-size: 11px; }
+  .activity-table td.ttl .ctx { font-size: 10px; color: #888; }
+
+  /* ——— "Notebooks at a glance" shelf ——— */
+  .shelf-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    padding: 6px;
+  }
+  .shelf-card {
+    background: #fafafa;
+    border: 1px solid #c8c8c8;
+    padding: 6px;
+    cursor: pointer;
+    position: relative;
+    min-height: 80px;
+  }
+  .shelf-card:hover {
+    background: #ffffcc;
+    border-color: #b88a30;
+  }
+  .shelf-card .ic {
+    font-size: 22px;
+    margin-bottom: 3px;
+    display: block;
+    filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.1));
+  }
+  .shelf-card .t {
+    font-size: 11px;
+    font-weight: bold;
+    color: #1a3a6b;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+  .shelf-card .meta {
+    font-size: 9px;
+    color: #666;
+  }
+  .shelf-card .recent-dot {
+    position: absolute;
+    top: 4px; right: 4px;
+    width: 8px; height: 8px;
+    background: #d43a3a;
+    border: 1px solid #8a0000;
+    border-radius: 50%;
+  }
+  .shelf-card.archived {
+    opacity: 0.75;
+    background: #f0f0ec;
+  }
+  .shelf-card.archived .t { color: #555; }
+
+  /* ——— Stats mini-dashboard ——— */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: #c8c8c8;
+    border: 1px solid #a8a8a8;
+  }
+  .stat-cell {
+    background: linear-gradient(to bottom, #ffffff, #f0f0e8);
+    padding: 8px 6px;
+    text-align: center;
+  }
+  .stat-cell .n {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #1a3a6b;
+    line-height: 1;
+    text-shadow: 1px 1px 0 #fff;
+  }
+  .stat-cell .l {
+    font-size: 9px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 3px;
+  }
+  .stat-cell .d {
+    font-size: 9px;
+    color: #2a5a10;
+    font-weight: bold;
+    margin-top: 2px;
+  }
+  .stat-cell .d.red { color: #8a0000; }
+
+  /* ——— Calendar (tiny Outlook-style) ——— */
+  .cal-head {
+    background: #1a3a6b;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .cal-head a { color: #ffcc66; }
+  .cal-head a:hover { color: #ffeebb; }
+  .cal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+  }
+  .cal-table th {
+    background: #c8d4e8;
+    border: 1px solid #8098b8;
+    color: #1a3a6b;
+    padding: 2px;
+    font-weight: bold;
+    width: 14.28%;
+  }
+  .cal-table td {
+    border: 1px solid #d8d8d8;
+    padding: 2px 4px;
+    text-align: right;
+    height: 22px;
+    vertical-align: top;
+    color: #333;
+    cursor: pointer;
+  }
+  .cal-table td:hover { background: #ffffcc; }
+  .cal-table td.off { color: #bbb; background: #fafafa; }
+  .cal-table td.today {
+    background: #ffbe3d !important;
+    color: #5a3a00;
+    font-weight: bold;
+    box-shadow: inset 0 0 0 2px #d48a00;
+  }
+  .cal-table td.event {
+    background: #eaf0ff;
+    color: #1a3a6b;
+    font-weight: bold;
+    position: relative;
+  }
+  .cal-table td.event.deadline {
+    background: #ffe4e4;
+    color: #8a0000;
+  }
+
+  /* Events list below calendar */
+  .event-list { font-size: 11px; }
+  .event-list li {
+    padding: 3px 8px;
+    border-bottom: 1px dotted #d8d8d8;
+    list-style: none;
+  }
+  .event-list li:last-child { border-bottom: none; }
+  .event-list .date {
+    display: inline-block;
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    color: #1a3a6b;
+    background: #e8eef7;
+    border: 1px solid #b8c8e0;
+    padding: 0 3px;
+    margin-right: 4px;
+    font-weight: bold;
+  }
+  .event-list .date.urgent {
+    background: #ffe4e4; border-color: #c86060; color: #8a0000;
+  }
+
+  /* ——— Tips & help box ——— */
+  .tip-box {
+    font-size: 11px;
+    line-height: 1.6;
+    padding: 6px 8px;
+  }
+  .tip-box .quote {
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: #1a3a6b;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-left: 3px solid #c8d4e8;
+    background: #fafaf4;
+    margin: 4px 0;
+  }
+  .tip-box .quote cite {
+    display: block;
+    font-size: 10px;
+    color: #777;
+    font-style: normal;
+    text-align: right;
+    margin-top: 3px;
+  }
+
+  /* ——— Tasks list ——— */
+  .task-list li {
+    list-style: none;
+    padding: 4px 8px;
+    border-bottom: 1px dotted #d8d8d8;
+    font-size: 11px;
+    display: grid;
+    grid-template-columns: 16px 1fr auto;
+    gap: 6px;
+    align-items: center;
+  }
+  .task-list li:last-child { border-bottom: none; }
+  .task-list .chk {
+    width: 13px; height: 13px;
+    background: #fff;
+    border: 1px solid #888;
+    box-shadow: inset 1px 1px 0 #d4d4d4;
+    display: inline-block;
+  }
+  .task-list .chk.done {
+    background: #fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='13' height='13'><polyline points='2,7 5,10 11,3' stroke='%232a5a10' stroke-width='2' fill='none'/></svg>") center/11px no-repeat;
+  }
+  .task-list li.done { color: #888; text-decoration: line-through; }
+  .task-list .prio {
+    font-size: 9px;
+    font-weight: bold;
+    padding: 0 4px;
+    border: 1px solid;
+    text-transform: uppercase;
+  }
+  .task-list .prio.hi { background: #ffe4e4; border-color: #c86060; color: #8a0000; }
+  .task-list .prio.med { background: #ffe8b8; border-color: #c8a040; color: #5a3a00; }
+  .task-list .prio.low { background: #eaf0ff; border-color: #6b83a8; color: #1a3a6b; }
+
+  /* ——— Quick capture box ——— */
+  .capture-box {
+    padding: 8px;
+    font-size: 11px;
+  }
+  .capture-box textarea {
+    width: 100%;
+    height: 60px;
+    font-family: Verdana, sans-serif;
+    font-size: 11px;
+    border: 1px solid #888;
+    box-shadow: inset 1px 1px 0 #d4d4d4;
+    padding: 4px;
+    resize: vertical;
+  }
+  .capture-box .ctrls {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+    align-items: center;
+  }
+  .capture-box select {
+    font-family: inherit;
+    font-size: 10px;
+    padding: 1px 3px;
+    border: 1px solid #888;
+  }
+  .capture-box .cbtn {
+    display: inline-block;
+    padding: 2px 10px;
+    background: linear-gradient(to bottom, #d4e8ff, #8ab4e8);
+    border: 1px solid #4a7ac8;
+    color: #002855;
+    font-weight: bold;
+    font-size: 10px;
+    cursor: pointer;
+  }
+  .capture-box .cbtn:hover { background: linear-gradient(to bottom, #e8f4ff, #a0c4f4); }
+  .capture-box .cbtn.ghost {
+    background: linear-gradient(to bottom, #fff, #e0dcd4);
+    border-color: #8a8a8a;
+    color: #000;
+    font-weight: normal;
+  }
+
+  /* ——— Open Questions feed ——— */
+  .q-list li {
+    list-style: none;
+    padding: 4px 8px;
+    border-bottom: 1px dotted #d8d8d8;
+    font-size: 11px;
+    display: grid;
+    grid-template-columns: 16px 1fr auto;
+    gap: 6px;
+    align-items: baseline;
+  }
+  .q-list li:last-child { border-bottom: none; }
+  .q-list .qic {
+    color: #c00;
+    font-weight: bold;
+  }
+  .q-list .q-src {
+    font-size: 9px;
+    color: #888;
+    margin-top: 2px;
+  }
+  .q-list .age {
+    font-size: 10px;
+    color: #777;
+  }
+
+  /* ——— Stats/usage sparkline table ——— */
+  .usage-table {
+    width: 100%;
+    font-size: 10px;
+    border-collapse: collapse;
+  }
+  .usage-table td { padding: 2px 6px; }
+  .usage-table td.bar-cell { width: 100%; padding-right: 6px; }
+  .usage-table .bar {
+    height: 10px;
+    background: linear-gradient(to bottom, #8ab4e8, #4a7ac8);
+    border: 1px solid #1a3a6b;
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+  .usage-table td.n {
+    text-align: right;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    color: #1a3a6b;
+    width: 40px;
+  }
+
+  /* ——— Footer ——— */
+  .footer {
+    background: linear-gradient(to bottom, #eaeaea, #d4d0c8);
+    border-top: 1px solid #8a8a8a;
+    padding: 6px 10px;
+    margin-top: 10px;
+    font-size: 10px;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<!-- Banner with search -->
+<div class="banner">
+  <div class="logo">P</div>
+  <div class="title-area">
+    <div class="t1">Personal Knowledge Portal</div>
+    <div class="t2">Enterprise Edition v3.2.1 &nbsp;|&nbsp; A Knowledge Management Solution for the Individual</div>
+  </div>
+  <div class="banner-search">
+    <input type="text" placeholder="Search notebooks, pages, attachments..."/>
+    <button class="go">Go ▸</button>
+  </div>
+  <div class="user-area">
+    Welcome back, <span class="u1">J. Researcher</span><br/>
+    <a>My Profile</a> &nbsp;|&nbsp; <a>Help</a> &nbsp;|&nbsp; <a>Sign Out</a>
+  </div>
+</div>
+
+<!-- Subnav -->
+<div class="subnav">
+  <span class="tab active">Home</span>
+  <span class="tab">Notebooks</span>
+  <span class="tab">Attachments Library</span>
+  <span class="tab">Recent Activity</span>
+  <span class="tab">Site Settings</span>
+</div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <span class="breadcrumb-right">Wednesday, April 22, 2026 &nbsp;|&nbsp; 09:47 AM &nbsp;|&nbsp; Session: 00:12:41</span>
+  <span class="current">Home / My Dashboard</span>
+</div>
+
+<!-- Welcome banner -->
+<div class="welcome-banner">
+  <div class="w-icon">☀</div>
+  <div class="w-text">
+    <h2>Good morning, J. Researcher!</h2>
+    <div class="sub">You have <b>3 notebooks edited recently</b>, <b>11 open questions</b> across your knowledge base, and <b>2 deadlines</b> this week.</div>
+  </div>
+  <div class="w-right">
+    Streak: <b>14 consecutive days</b> 🔥<br/>
+    Words written this week: <b>4,872</b><br/>
+    Last backup: <b>yesterday 11:30 PM ✓</b>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="layout">
+
+  <!-- ===== LEFT: Navigation ===== -->
+  <div class="left-col">
+
+    <div class="webpart">
+      <div class="webpart-header">
+        <span>📁 Quick Navigation</span>
+        <span class="actions">[<a>−</a>]</span>
+      </div>
+      <div class="webpart-body" style="padding: 0;">
+        <ul class="nav-list">
+          <li class="section">My Workspace</li>
+          <li><a class="current">Home Dashboard</a></li>
+          <li><a>My Notebooks</a></li>
+          <li><a>Recently Edited</a></li>
+          <li><a>Search...</a></li>
+          <li><a>Favorites ★</a></li>
+
+          <li class="section">Active Notebooks (7)</li>
+          <li><a>📓 Research Journal Q2</a></li>
+          <li><a>📕 Chemistry Study Notes</a></li>
+          <li><a>📗 Reading Log 2026</a></li>
+          <li><a>📘 Meeting Minutes</a></li>
+          <li><a>📒 Project: Thesis Draft</a></li>
+          <li><a>📔 Personal Reflections</a></li>
+          <li><a>📙 Language Learning (DE)</a></li>
+
+          <li class="section">Archived (14)</li>
+          <li><a>View all archived »</a></li>
+
+          <li class="section">Tools</li>
+          <li><a>Create New Notebook</a></li>
+          <li><a>Import / Export</a></li>
+          <li><a>Backup Database</a></li>
+          <li><a>Preferences</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>🔖 Favorite Pages</span></div>
+      <div class="webpart-body" style="font-size: 11px; line-height: 1.8;">
+        <a>★ 4.5 SN1/SN2/E1/E2</a><br/>
+        <a>★ Thesis outline (Ch. 3)</a><br/>
+        <a>★ Reading list — priorities</a><br/>
+        <a>★ Daily journal template</a><br/>
+        <a>★ German verb tables</a><br/>
+        <span style="font-size: 10px; color: #888;"><a>» Manage favorites</a></span>
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>🏷️ Popular Tags</span></div>
+      <div class="webpart-body" style="font-size: 11px; line-height: 1.9;">
+        <a style="font-size: 13px; font-weight: bold;">research</a> (34) &nbsp;
+        <a style="font-size: 12px;">CHEM 202</a> (21) &nbsp;
+        <a style="font-size: 11px;">thesis</a> (18) &nbsp;
+        <a style="font-size: 14px; font-weight: bold;">exam-relevant</a> (16) &nbsp;
+        <a style="font-size: 10px;">mechanisms</a> (12) &nbsp;
+        <a style="font-size: 11px;">journal</a> (11) &nbsp;
+        <a style="font-size: 10px;">reading</a> (9) &nbsp;
+        <a style="font-size: 10px;">draft</a> (8) &nbsp;
+        <a style="font-size: 9px;">quarterly</a> (6)
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== MAIN (2-column grid of web parts) ===== -->
+  <div class="main-col">
+
+    <!-- Announcements (full width) -->
+    <div class="webpart wp-orange full">
+      <div class="webpart-header">
+        <span>📢 Announcements &amp; Reminders</span>
+        <span class="actions">[<a>Manage</a>] [<a>−</a>]</span>
+      </div>
+      <div class="webpart-body">
+        <div class="announce red">
+          <div class="kicker">⚠ Deadline approaching</div>
+          <b>CHEM 202 Final Exam — May 12, 2026 (20 days remaining).</b> Review progress: 6 of 8 Module 4 pages complete. <a>View study plan →</a>
+        </div>
+        <div class="announce">
+          <div class="kicker">❓ 11 Open Questions</div>
+          Your notebooks have <b>11 unresolved questions</b>, including <b>3 marked for Prof. K's office hours</b> (Thursday 2:00 PM). <a>Review master list →</a>
+        </div>
+        <div class="announce green">
+          <div class="kicker">✓ Weekly review ready</div>
+          It's Wednesday — your scheduled <b>mid-week review</b> can begin. 7 pages edited since Sunday, 2 notebooks touched. <a>Start review →</a>
+        </div>
+        <div class="announce blue">
+          <div class="kicker">ℹ System notice</div>
+          Database at <b>312.4 MB</b> (of 2 GB local quota). Last automatic backup: <b>Apr 21, 2026 11:30 PM</b>. <a>Configure backups</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats mini-dashboard (full width) -->
+    <div class="full">
+      <div style="background: linear-gradient(to bottom, #4a7ac8, #2a5a9a); color: #fff; font-weight: bold; font-size: 11px; padding: 3px 8px; border: 1px solid #1a3a6b; text-shadow: 1px 1px 0 rgba(0,0,0,0.3);">
+        ▸ Workspace at a Glance
+      </div>
+      <div class="stat-grid">
+        <div class="stat-cell">
+          <div class="n">7</div>
+          <div class="l">Active Notebooks</div>
+          <div class="d">+1 this month</div>
+        </div>
+        <div class="stat-cell">
+          <div class="n">14</div>
+          <div class="l">Archived</div>
+          <div class="d">+2 this quarter</div>
+        </div>
+        <div class="stat-cell">
+          <div class="n">1,346</div>
+          <div class="l">Total Pages</div>
+          <div class="d">+23 this week</div>
+        </div>
+        <div class="stat-cell">
+          <div class="n">11</div>
+          <div class="l">Open Questions</div>
+          <div class="d red">+3 this week</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notebooks at a glance (full width) -->
+    <div class="webpart full">
+      <div class="webpart-header">
+        <span>📚 Notebooks at a Glance — Active (7)</span>
+        <span class="actions">[<a>View all</a>] [<a>Grid</a>] [<a>List</a>] [<a>+ New</a>]</span>
+      </div>
+      <div class="shelf-grid">
+        <div class="shelf-card">
+          <span class="recent-dot" title="edited today"></span>
+          <span class="ic">📕</span>
+          <div class="t">Chemistry Study Notes</div>
+          <div class="meta">42 pages · 8 imgs<br/>mod. today 09:41</div>
+        </div>
+        <div class="shelf-card">
+          <span class="recent-dot"></span>
+          <span class="ic">📓</span>
+          <div class="t">Research Journal Q2</div>
+          <div class="meta">23 pages · 0 imgs<br/>mod. today 08:55</div>
+        </div>
+        <div class="shelf-card">
+          <span class="ic">📗</span>
+          <div class="t">Reading Log 2026</div>
+          <div class="meta">31 pages · 6 imgs<br/>mod. yesterday</div>
+        </div>
+        <div class="shelf-card">
+          <span class="ic">📘</span>
+          <div class="t">Meeting Minutes</div>
+          <div class="meta">18 pages · 2 imgs<br/>mod. 2 days ago</div>
+        </div>
+        <div class="shelf-card">
+          <span class="ic">📒</span>
+          <div class="t">Thesis Draft</div>
+          <div class="meta">64 pages · 0 imgs<br/>mod. 3 days ago</div>
+        </div>
+        <div class="shelf-card">
+          <span class="ic">📔</span>
+          <div class="t">Personal Reflections</div>
+          <div class="meta">112 pages · 0 imgs<br/>mod. last night</div>
+        </div>
+        <div class="shelf-card">
+          <span class="ic">📙</span>
+          <div class="t">Language Learning (DE)</div>
+          <div class="meta">9 pages · 0 imgs<br/>mod. this morning</div>
+        </div>
+        <div class="shelf-card archived" style="background: repeating-linear-gradient(45deg, #f0f0e8 0 3px, #e8e8e0 3px 6px); border-style: dashed;">
+          <span class="ic" style="opacity: 0.4;">➕</span>
+          <div class="t" style="color: #666;">Start a new notebook...</div>
+          <div class="meta" style="color: #999;">click to create</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity (left col of main) -->
+    <div class="webpart">
+      <div class="webpart-header">
+        <span>⏱ Recent Activity</span>
+        <span class="actions">[<a>View feed</a>]</span>
+      </div>
+      <div class="webpart-body" style="padding: 0;">
+        <table class="activity-table">
+          <tr>
+            <td class="ic">✎</td>
+            <td class="verb">edited</td>
+            <td class="ttl">
+              <a>4.7 Addition reactions (draft)</a>
+              <div class="ctx">in Chemistry Study Notes</div>
+            </td>
+            <td class="when">6 min</td>
+          </tr>
+          <tr>
+            <td class="ic">✎</td>
+            <td class="verb">edited</td>
+            <td class="ttl">
+              <a>Studio studio (a recursion)</a>
+              <div class="ctx">in Research Journal Q2</div>
+            </td>
+            <td class="when">52 min</td>
+          </tr>
+          <tr>
+            <td class="ic">✦</td>
+            <td class="verb">created</td>
+            <td class="ttl">
+              <a>Open Questions — master list</a>
+              <div class="ctx">in Chemistry Study Notes</div>
+            </td>
+            <td class="when">yesterday</td>
+          </tr>
+          <tr>
+            <td class="ic">🔗</td>
+            <td class="verb">linked</td>
+            <td class="ttl">
+              <a>4.5 SN1/SN2</a> → <a>3.2 Rate laws</a>
+              <div class="ctx">internal link added</div>
+            </td>
+            <td class="when">yesterday</td>
+          </tr>
+          <tr>
+            <td class="ic">📎</td>
+            <td class="verb">attached</td>
+            <td class="ttl">
+              <a>sn1-vs-sn2-decision.png</a>
+              <div class="ctx">to 4.5 SN1/SN2/E1/E2</div>
+            </td>
+            <td class="when">2 days</td>
+          </tr>
+          <tr>
+            <td class="ic">✎</td>
+            <td class="verb">edited</td>
+            <td class="ttl">
+              <a>Before sleep — 04/20</a>
+              <div class="ctx">in Personal Reflections</div>
+            </td>
+            <td class="when">2 days</td>
+          </tr>
+          <tr>
+            <td class="ic">🗄</td>
+            <td class="verb">archived</td>
+            <td class="ttl">
+              <a>Q1 Review 2026</a>
+              <div class="ctx">notebook closed · 14 pages</div>
+            </td>
+            <td class="when">Apr 15</td>
+          </tr>
+          <tr>
+            <td class="ic">✦</td>
+            <td class="verb">created</td>
+            <td class="ttl">
+              <a>Language Learning (DE)</a>
+              <div class="ctx">new notebook</div>
+            </td>
+            <td class="when">Apr 18</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Calendar / upcoming -->
+    <div class="webpart">
+      <div class="cal-head">
+        <span>◀ April 2026 ▶</span>
+        <span><a>Today</a> · <a>Month</a></span>
+      </div>
+      <table class="cal-table">
+        <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
+        <tr>
+          <td class="off">29</td><td class="off">30</td><td class="off">31</td>
+          <td>1</td><td>2</td><td>3</td><td>4</td>
+        </tr>
+        <tr>
+          <td>5</td><td>6</td><td>7</td><td>8</td>
+          <td>9</td><td>10</td><td>11</td>
+        </tr>
+        <tr>
+          <td>12</td><td>13</td><td>14</td>
+          <td class="event" title="Lab report due">15</td>
+          <td>16</td><td>17</td><td>18</td>
+        </tr>
+        <tr>
+          <td>19</td><td>20</td><td>21</td>
+          <td class="today">22</td>
+          <td class="event" title="Office hours">23</td>
+          <td>24</td><td>25</td>
+        </tr>
+        <tr>
+          <td>26</td><td>27</td>
+          <td class="event" title="Problem set 5">28</td>
+          <td>29</td><td>30</td>
+          <td class="off">1</td><td class="off">2</td>
+        </tr>
+      </table>
+      <ul class="event-list" style="margin: 0; padding: 0;">
+        <li>
+          <span class="date">TODAY</span>
+          <a>Mid-week review</a> — 4 PM
+        </li>
+        <li>
+          <span class="date">APR 23</span>
+          <a>Prof. K office hours</a> — 2:00 PM
+          <div style="font-size: 9px; color: #888; padding-left: 50px;">↳ bring 3 open questions</div>
+        </li>
+        <li>
+          <span class="date">APR 28</span>
+          <a>Problem set 5 due</a>
+        </li>
+        <li>
+          <span class="date urgent">MAY 12</span>
+          <b>CHEM 202 Final Exam</b> — 9:00 AM
+        </li>
+        <li>
+          <span class="date urgent">MAY 15</span>
+          Planned: <i>archive Chemistry notebook</i>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Open Questions feed -->
+    <div class="webpart wp-red">
+      <div class="webpart-header">
+        <span>❓ Open Questions (11)</span>
+        <span class="actions">[<a>View all</a>]</span>
+      </div>
+      <ul class="q-list" style="margin: 0; padding: 0;">
+        <li>
+          <span class="qic">?</span>
+          <div>
+            <a>Why does Zeff not monotonically increase down a group?</a>
+            <div class="q-src">Chemistry › Module 1 › 1.3 · ask Prof. K</div>
+          </div>
+          <span class="age">12 days</span>
+        </li>
+        <li>
+          <span class="qic">?</span>
+          <div>
+            <a>Why does MO diagram "flip" for O₂ vs N₂?</a>
+            <div class="q-src">Chemistry › Module 2 › 2.5 · ask Prof. K</div>
+          </div>
+          <span class="age">9 days</span>
+        </li>
+        <li>
+          <span class="qic">?</span>
+          <div>
+            <a>ΔG cutoff where SN1 becomes viable for 1° center?</a>
+            <div class="q-src">Chemistry › Module 4 › 4.5 · ask Prof. K</div>
+          </div>
+          <span class="age">today</span>
+        </li>
+        <li>
+          <span class="qic">?</span>
+          <div>
+            <a>Erythro vs threo — sugar examples?</a>
+            <div class="q-src">Chemistry › Module 4 › 4.4</div>
+          </div>
+          <span class="age">6 days</span>
+        </li>
+        <li>
+          <span class="qic">?</span>
+          <div>
+            <a>Which Goodwin chapter addresses the LBJ question?</a>
+            <div class="q-src">Reading Log › Goodwin notes</div>
+          </div>
+          <span class="age">3 days</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tasks / to-do -->
+    <div class="webpart wp-green">
+      <div class="webpart-header">
+        <span>✓ Study Tasks</span>
+        <span class="actions">[<a>Add</a>] [<a>All</a>]</span>
+      </div>
+      <ul class="task-list" style="margin: 0; padding: 0;">
+        <li>
+          <span class="chk"></span>
+          <a>Finish draft of 4.7 Addition reactions</a>
+          <span class="prio hi">HIGH</span>
+        </li>
+        <li>
+          <span class="chk"></span>
+          <a>Review Module 1–3 for final</a>
+          <span class="prio hi">HIGH</span>
+        </li>
+        <li>
+          <span class="chk"></span>
+          <a>Problem set 5 (due Apr 28)</a>
+          <span class="prio med">MED</span>
+        </li>
+        <li>
+          <span class="chk"></span>
+          <a>Compile 3 questions for office hours</a>
+          <span class="prio med">MED</span>
+        </li>
+        <li class="done">
+          <span class="chk done"></span>
+          <span>Read Clayden Ch. 15</span>
+          <span class="prio low">LOW</span>
+        </li>
+        <li class="done">
+          <span class="chk done"></span>
+          <span>Update periodic-table-annotated.png</span>
+          <span class="prio low">LOW</span>
+        </li>
+        <li>
+          <span class="chk"></span>
+          <a>Prep lab notebook for Thursday</a>
+          <span class="prio low">LOW</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Quick capture -->
+    <div class="webpart">
+      <div class="webpart-header">
+        <span>✎ Quick Capture</span>
+        <span class="actions">[<a>?</a>]</span>
+      </div>
+      <div class="capture-box">
+        <textarea placeholder="Jot an idea, question, or stray thought... it'll land in your inbox page for triage later."></textarea>
+        <div class="ctrls">
+          <span>To:</span>
+          <select>
+            <option>📥 Inbox (default)</option>
+            <option>📓 Research Journal Q2</option>
+            <option>📕 Chemistry Study Notes</option>
+            <option>📔 Personal Reflections</option>
+          </select>
+          <span style="flex: 1;"></span>
+          <span class="cbtn ghost">As question ❓</span>
+          <span class="cbtn">Save ▸</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Writing streak / usage chart -->
+    <div class="webpart">
+      <div class="webpart-header">
+        <span>📊 This Week's Writing</span>
+        <span class="actions">[<a>Stats</a>]</span>
+      </div>
+      <div class="webpart-body">
+        <table class="usage-table">
+          <tr>
+            <td>Thu 04/16</td>
+            <td class="bar-cell"><span class="bar" style="width: 30%;"></span></td>
+            <td class="n">412</td>
+          </tr>
+          <tr>
+            <td>Fri 04/17</td>
+            <td class="bar-cell"><span class="bar" style="width: 55%;"></span></td>
+            <td class="n">743</td>
+          </tr>
+          <tr>
+            <td>Sat 04/18</td>
+            <td class="bar-cell"><span class="bar" style="width: 18%;"></span></td>
+            <td class="n">244</td>
+          </tr>
+          <tr>
+            <td>Sun 04/19</td>
+            <td class="bar-cell"><span class="bar" style="width: 80%;"></span></td>
+            <td class="n">1,082</td>
+          </tr>
+          <tr>
+            <td>Mon 04/20</td>
+            <td class="bar-cell"><span class="bar" style="width: 62%;"></span></td>
+            <td class="n">834</td>
+          </tr>
+          <tr>
+            <td>Tue 04/21</td>
+            <td class="bar-cell"><span class="bar" style="width: 45%;"></span></td>
+            <td class="n">605</td>
+          </tr>
+          <tr>
+            <td><b>Wed 04/22</b></td>
+            <td class="bar-cell"><span class="bar" style="width: 70%; background: linear-gradient(to bottom, #ffbe3d, #d48a00); border-color: #8a4a00;"></span></td>
+            <td class="n"><b>952</b></td>
+          </tr>
+          <tr style="border-top: 1px solid #c8c8c8;">
+            <td style="padding-top: 4px;"><b>Total</b></td>
+            <td class="bar-cell"></td>
+            <td class="n"><b>4,872</b></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tip of the day -->
+    <div class="webpart wp-orange full">
+      <div class="webpart-header">
+        <span>💡 Tip of the Day &amp; Quote</span>
+        <span class="actions">[<a>Next</a>] [<a>Dismiss</a>]</span>
+      </div>
+      <div class="tip-box">
+        <p><b>Tip #47:</b> Press <code style="background:#f4f4ec;border:1px solid #d4d4c4;padding: 0 3px;font-family:monospace;">Ctrl+K</code> from any page to quickly link to another page in the same notebook. Type <code style="background:#f4f4ec;border:1px solid #d4d4c4;padding: 0 3px;font-family:monospace;">[[</code> for an inline wiki-link with autocomplete.</p>
+        <div class="quote">
+          "We write to taste life twice, in the moment and in retrospect."
+          <cite>— Anaïs Nin</cite>
+        </div>
+        <p style="font-size: 10px; color: #666; text-align: right; margin: 0;">
+          <a>Browse 184 tips</a> &nbsp;|&nbsp; <a>Submit a tip</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== RIGHT: Side web parts ===== -->
+  <div class="right-col">
+
+    <div class="webpart">
+      <div class="webpart-header"><span>🌤 Today</span></div>
+      <div class="webpart-body" style="font-size: 10px; line-height: 1.7;">
+        <b>Wednesday, April 22, 2026</b><br/>
+        Stockholm · 11°C, partly cloudy<br/>
+        Sunrise 05:17 · Sunset 20:34<br/>
+        Day 112 of 365<br/>
+        <hr style="border: none; border-top: 1px dotted #c8c8c8; margin: 5px 0;"/>
+        <b style="color:#1a3a6b;">Week 17 of 2026</b><br/>
+        Q2 day 22 of 91
+      </div>
+    </div>
+
+    <div class="webpart wp-green">
+      <div class="webpart-header"><span>🔥 Streak</span></div>
+      <div class="webpart-body" style="text-align: center; padding: 10px;">
+        <div style="font-family: Georgia, serif; font-size: 36px; font-weight: bold; color: #2a5a10; line-height: 1;">14</div>
+        <div style="font-size: 10px; color: #555; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.06em;">consecutive days</div>
+        <div style="font-size: 10px; margin-top: 6px; color: #2a5a10;"><b>Personal best:</b> 23 days<br/>(Jan 3 – Jan 25)</div>
+        <div style="font-size: 10px; margin-top: 4px;"><a>View streak history</a></div>
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>🗄 Archive Prompt</span></div>
+      <div class="webpart-body" style="font-size: 11px; line-height: 1.5;">
+        <div style="font-size: 10px; color: #888; margin-bottom: 4px;">System suggests:</div>
+        <p style="margin: 0 0 6px;"><b>📔 Meeting Minutes</b> hasn't been edited in <b>23 days</b>. Consider archiving?</p>
+        <div style="text-align: right; margin-top: 6px;">
+          <span style="display: inline-block; padding: 1px 8px; background: linear-gradient(to bottom, #fff, #e0dcd4); border: 1px solid #8a8a8a; font-size: 10px; cursor: pointer;">Archive</span>
+          <span style="display: inline-block; padding: 1px 8px; background: linear-gradient(to bottom, #fff, #e0dcd4); border: 1px solid #8a8a8a; font-size: 10px; cursor: pointer;">Keep</span>
+          <span style="display: inline-block; padding: 1px 8px; background: linear-gradient(to bottom, #fff, #e0dcd4); border: 1px solid #8a8a8a; font-size: 10px; cursor: pointer;">Snooze</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>🔍 Did You Know?</span></div>
+      <div class="webpart-body" style="font-size: 10px; line-height: 1.6; color: #333;">
+        You've written <b>147,203 words</b> across all notebooks (active + archived) since Feb 2023 — about <b>1.7 typical novels</b>.
+        <hr style="border: none; border-top: 1px dotted #c8c8c8; margin: 6px 0;"/>
+        Your oldest active notebook is <a>Personal Reflections</a>, begun <b>Feb 14, 2023</b> (1,163 days ago).
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>📎 Recent Attachments</span></div>
+      <div class="webpart-body" style="padding: 0;">
+        <ul style="list-style: none; margin: 0; padding: 0; font-size: 10px;">
+          <li style="padding: 3px 6px; border-bottom: 1px dotted #d8d8d8;">
+            🖼️ <a>sn1-vs-sn2-decision.png</a><br/>
+            <span style="font-size: 9px; color: #888; padding-left: 16px;">267 KB · 2 days ago</span>
+          </li>
+          <li style="padding: 3px 6px; border-bottom: 1px dotted #d8d8d8;">
+            🖼️ <a>chirality-r-s-examples.png</a><br/>
+            <span style="font-size: 9px; color: #888; padding-left: 16px;">389 KB · Apr 14</span>
+          </li>
+          <li style="padding: 3px 6px; border-bottom: 1px dotted #d8d8d8;">
+            🖼️ <a>functional-groups-chart.png</a><br/>
+            <span style="font-size: 9px; color: #888; padding-left: 16px;">511 KB · Apr 6</span>
+          </li>
+          <li style="padding: 3px 6px;">
+            🖼️ <a>arrhenius-plot.png</a><br/>
+            <span style="font-size: 9px; color: #888; padding-left: 16px;">221 KB · Mar 14</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>📥 Inbox (3)</span></div>
+      <div class="webpart-body" style="padding: 0;">
+        <ul style="list-style: none; margin: 0; padding: 0; font-size: 10px;">
+          <li style="padding: 4px 6px; border-bottom: 1px dotted #d8d8d8; background: #fffce0;">
+            <b>Quick thought</b> · 8:42 AM<br/>
+            <span style="color: #555;">"Check: is Gibbs really ΔG = −RT ln K at all temperatures?..."</span>
+          </li>
+          <li style="padding: 4px 6px; border-bottom: 1px dotted #d8d8d8; background: #fffce0;">
+            <b>❓ Quick question</b> · yesterday<br/>
+            <span style="color: #555;">"Why did Faraday use..."</span>
+          </li>
+          <li style="padding: 4px 6px; background: #fffce0;">
+            <b>Quick thought</b> · Apr 20<br/>
+            <span style="color: #555;">"The book on attention — see marginalia page 12..."</span>
+          </li>
+        </ul>
+        <div style="padding: 4px 6px; text-align: right; background: #ece9d8; border-top: 1px solid #c8c4b4;">
+          <a style="font-size: 10px;">Process inbox →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>🔧 Quick Actions</span></div>
+      <div class="webpart-body" style="font-size: 11px; line-height: 1.9;">
+        <a>📝 New page</a><br/>
+        <a>📓 New notebook</a><br/>
+        <a>📎 Upload attachment</a><br/>
+        <a>🔍 Full-text search</a><br/>
+        <a>📤 Export notebook</a><br/>
+        <a>💾 Run backup now</a><br/>
+        <a>⚙ Preferences</a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div>
+    &copy; 2026 Personal Knowledge Portal &nbsp;|&nbsp; v3.2.1 (build 20260418)
+    &nbsp;|&nbsp; <a>Terms of Use</a> &nbsp;|&nbsp; <a>Privacy Policy</a>
+    &nbsp;|&nbsp; <a>Accessibility</a> &nbsp;|&nbsp; <a>Report an Issue</a>
+  </div>
+  <div>
+    Database: SQLite 3.42 &nbsp;|&nbsp; Server: localhost:8080 &nbsp;|&nbsp; ✓ Best viewed in Internet Explorer 7+
+  </div>
+</div>
+
+</body>
+</html>

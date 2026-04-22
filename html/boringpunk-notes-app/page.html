@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>4.5 Reaction mechanisms — SN1, SN2, E1, E2 | Personal Knowledge Portal</title>
+<script>
+  MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: Tahoma, Verdana, "MS Sans Serif", Geneva, sans-serif;
+    font-size: 11px;
+    color: #000;
+    background: #d4d0c8 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='4' height='4' fill='%23d4d0c8'/><rect width='1' height='1' fill='%23c8c4bc'/></svg>");
+  }
+  a { color: #0033cc; text-decoration: underline; cursor: pointer; }
+  a:visited { color: #551a8b; }
+  a:hover { color: #ff0000; }
+
+  /* ——— Banner ——— */
+  .banner {
+    height: 62px;
+    background: #003d7a linear-gradient(to bottom, #0058b8 0%, #003d7a 55%, #002855 100%);
+    border-bottom: 2px solid #001a3d;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+  }
+  .banner .logo {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, #ffbe3d, #d48a00);
+    border: 2px solid #fff;
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 22px;
+    color: #003d7a;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(0,0,0,0.3);
+    margin-right: 12px;
+  }
+  .banner .title-area { flex: 1; }
+  .banner .title-area .t1 {
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 18px; font-weight: bold;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  }
+  .banner .title-area .t2 {
+    font-size: 10px; color: #b8d4ff; margin-top: 2px; font-style: italic;
+  }
+  .banner .user-area { text-align: right; font-size: 10px; color: #e0ecff; }
+  .banner .user-area .u1 { font-weight: bold; color: #fff; }
+  .banner .user-area a { color: #ffcc66; }
+  .banner .user-area a:hover { color: #ffeebb; }
+
+  /* ——— Subnav ——— */
+  .subnav {
+    background: linear-gradient(to bottom, #eaeaea 0%, #d4d0c8 100%);
+    border-bottom: 1px solid #8a8a8a;
+    height: 26px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 8px;
+  }
+  .subnav .tab {
+    display: inline-block;
+    padding: 4px 14px 5px;
+    margin-right: 2px;
+    background: linear-gradient(to bottom, #f4f4f4, #d8d4cc);
+    border: 1px solid #8a8a8a;
+    border-bottom: none;
+    font-size: 11px;
+    color: #222;
+    cursor: pointer;
+    position: relative;
+    top: 1px;
+  }
+  .subnav .tab:hover { background: linear-gradient(to bottom, #fff, #e4e0d8); }
+  .subnav .tab.active {
+    background: #ece9d8;
+    font-weight: bold;
+    padding-bottom: 6px;
+    top: 0;
+  }
+
+  /* ——— Breadcrumb ——— */
+  .breadcrumb {
+    background: #ece9d8;
+    padding: 4px 10px;
+    border-bottom: 1px solid #b8b4a8;
+    font-size: 11px;
+    color: #333;
+  }
+  .breadcrumb .sep { color: #888; margin: 0 5px; }
+  .breadcrumb .current { color: #000; font-weight: bold; }
+  .breadcrumb-right {
+    float: right;
+    color: #555;
+    font-size: 10px;
+  }
+
+  /* ——— Layout ——— */
+  .wrap { padding: 10px; }
+  .layout {
+    display: grid;
+    grid-template-columns: 220px 1fr 220px;
+    gap: 10px;
+  }
+
+  /* ——— Web parts ——— */
+  .webpart {
+    background: #fff;
+    border: 1px solid #a8a8a8;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 0 #b8b8b8;
+  }
+  .webpart-header {
+    background: linear-gradient(to bottom, #e8eef7 0%, #c8d4e8 100%);
+    border-bottom: 1px solid #6b83a8;
+    padding: 4px 8px;
+    font-weight: bold;
+    font-size: 11px;
+    color: #1a3a6b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .webpart-header .actions { font-size: 10px; font-weight: normal; }
+  .webpart-header .actions a { color: #0033cc; font-weight: normal; }
+  .webpart-body { padding: 6px; }
+
+  /* ——— Section heading (blue bar) ——— */
+  .section-heading {
+    background: linear-gradient(to bottom, #4a7ac8 0%, #2a5a9a 100%);
+    color: #fff;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 3px 8px;
+    border: 1px solid #1a3a6b;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+  }
+
+  /* ——— Page tree (left) ——— */
+  .tree-pane { padding: 0 !important; font-size: 11px; }
+  .tree-list { list-style: none; margin: 0; padding: 0; }
+  .tree-list li {
+    padding: 2px 6px 2px 18px;
+    border-bottom: 1px dotted #e8e8e8;
+    background-repeat: no-repeat;
+    background-position: 6px 6px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><polygon points='2,2 8,5 2,8' fill='%230058b8'/></svg>");
+  }
+  .tree-list li a { color: #0033cc; text-decoration: none; }
+  .tree-list li a:hover { text-decoration: underline; }
+  .tree-list li.folder {
+    font-weight: bold;
+    background-color: #f4f4ec;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><polygon points='1,2 9,2 5,8' fill='%230058b8'/></svg>");
+    padding-left: 18px;
+  }
+  .tree-list li.folder a { color: #000; }
+  .tree-list li.indent { padding-left: 34px; background-position: 22px 6px; }
+  .tree-list li.current {
+    background-color: #fff3b8;
+    border-left: 3px solid #d48a00;
+    padding-left: 31px !important;
+    background-position: 19px 6px !important;
+  }
+  .tree-list li.current a {
+    font-weight: bold; color: #000;
+  }
+  .tree-list li.question a { color: #c00; }
+  .tree-list li small {
+    color: #888;
+    font-size: 9px;
+    font-weight: normal;
+    margin-left: 4px;
+  }
+
+  /* ——— Main content ——— */
+  .page-head {
+    background: #fff;
+    border: 1px solid #a8a8a8;
+    border-top: none;
+    padding: 10px 14px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .page-head .icon {
+    font-size: 32px;
+    line-height: 1;
+  }
+  .page-head .title-block { flex: 1; }
+  .page-head h1 {
+    margin: 0;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1a3a6b;
+  }
+  .page-head .subtitle {
+    font-size: 11px;
+    color: #555;
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .page-head .meta-row {
+    font-size: 10px;
+    color: #666;
+    margin-top: 4px;
+  }
+  .page-head .meta-row span { margin-right: 10px; }
+  .page-head .meta-row b { color: #000; }
+
+  /* ——— WYSIWYG toolbar ——— */
+  .wysiwyg-bar {
+    background: linear-gradient(to bottom, #f4f4f4 0%, #d8d4cc 100%);
+    border: 1px solid #8a8a8a;
+    border-top: none;
+    padding: 3px 4px;
+    display: flex;
+    gap: 1px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .wbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 5px;
+    background: linear-gradient(to bottom, #fff 0%, #e0dcd4 100%);
+    border: 1px solid transparent;
+    color: #000;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .wbtn:hover {
+    background: linear-gradient(to bottom, #fffce0 0%, #f4e8a8 100%);
+    border-color: #c8a040;
+  }
+  .wbtn.active {
+    background: linear-gradient(to bottom, #d4e8ff 0%, #a0c4f4 100%);
+    border-color: #4a7ac8;
+  }
+  .wbtn.bold { font-family: Georgia, serif; font-weight: 900; }
+  .wbtn.italic { font-family: Georgia, serif; font-style: italic; font-weight: 700; }
+  .wbtn.under { text-decoration: underline; font-weight: 700; }
+  .wbtn.strike { text-decoration: line-through; }
+  .wbtn select {
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 11px;
+    padding: 0;
+    margin: 0;
+    outline: none;
+  }
+  .wbtn.dropdown { padding: 0 4px 0 6px; }
+  .wbtn.dropdown::after {
+    content: " ▾";
+    color: #555;
+    font-size: 8px;
+    margin-left: 2px;
+  }
+  .wysiwyg-bar .wsep {
+    width: 1px;
+    height: 18px;
+    background: #a8a8a8;
+    margin: 0 3px;
+  }
+  .wbtn .swatch {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border: 1px solid #000;
+    margin-right: 2px;
+    vertical-align: -1px;
+  }
+
+  /* Save status row */
+  .save-row {
+    background: #ffffe0;
+    border: 1px solid #d4c878;
+    border-top: none;
+    padding: 3px 8px;
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .save-row .status { color: #5a3a00; }
+  .save-row .status b { color: #2a5a10; }
+  .save-row .actions-right { display: flex; gap: 4px; }
+  .save-row .abtn {
+    display: inline-block;
+    padding: 1px 8px;
+    background: linear-gradient(to bottom, #fff 0%, #e0dcd4 100%);
+    border: 1px solid #8a8a8a;
+    color: #000;
+    font-size: 10px;
+    cursor: pointer;
+  }
+  .save-row .abtn:hover { background: linear-gradient(to bottom, #fffce0 0%, #f4e8a8 100%); }
+  .save-row .abtn.primary {
+    background: linear-gradient(to bottom, #d4e8ff 0%, #8ab4e8 100%);
+    border-color: #4a7ac8;
+    font-weight: bold;
+  }
+
+  /* ——— Page content area ——— */
+  .page-body {
+    background: #fff;
+    border: 1px solid #a8a8a8;
+    border-top: none;
+    padding: 18px 22px 24px;
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #222;
+  }
+  .page-body h2 {
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 15px;
+    color: #1a3a6b;
+    margin: 22px 0 8px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #c8d4e8;
+  }
+  .page-body h2:first-child { margin-top: 0; }
+  .page-body h3 {
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 13px;
+    color: #2a5a9a;
+    margin: 14px 0 6px;
+  }
+  .page-body p { margin: 0 0 8px; }
+  .page-body strong, .page-body b { color: #000; }
+  .page-body ul, .page-body ol { margin: 4px 0 10px 22px; padding: 0; }
+  .page-body li { margin-bottom: 3px; }
+  .page-body code {
+    background: #f4f4ec;
+    border: 1px solid #d4d4c4;
+    padding: 0 3px;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+  }
+  .page-body a { color: #0033cc; }
+
+  /* Callout / info boxes */
+  .callout {
+    background: #fffce0;
+    border: 1px solid #d4c878;
+    padding: 8px 10px;
+    margin: 10px 0;
+    font-size: 11px;
+  }
+  .callout .kicker {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #b86a00;
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+  .callout.tip { background: #eaf4e8; border-color: #6b9a3a; }
+  .callout.tip .kicker { color: #2a5a10; }
+  .callout.warning { background: #ffe8d0; border-color: #d48a30; }
+  .callout.warning .kicker { color: #8a4a00; }
+  .callout.question {
+    background: #ffe4e4; border-color: #d46a6a;
+  }
+  .callout.question .kicker { color: #8a0000; }
+
+  /* Formula block (display math) */
+  .formula-block {
+    background: #fafaf4;
+    border: 1px solid #d4d4c4;
+    border-left: 3px solid #4a7ac8;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+  }
+  .formula-block .eq-num {
+    position: absolute;
+    right: 8px; top: 50%;
+    transform: translateY(-50%);
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    color: #888;
+  }
+
+  /* Comparison table — SN/E mechanisms */
+  .mech-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin: 10px 0;
+    background: #fff;
+  }
+  .mech-table th {
+    background: linear-gradient(to bottom, #e8eef7 0%, #c8d4e8 100%);
+    border: 1px solid #8098b8;
+    padding: 5px 8px;
+    text-align: left;
+    color: #1a3a6b;
+    font-size: 11px;
+  }
+  .mech-table th.col-sn1 { background: linear-gradient(to bottom, #ffe8b8, #f4c870); color: #5a3a00; border-color: #b88a30; }
+  .mech-table th.col-sn2 { background: linear-gradient(to bottom, #d4e8ff, #8ab4e8); color: #1a3a6b; border-color: #4a7ac8; }
+  .mech-table th.col-e1  { background: linear-gradient(to bottom, #eaf4e8, #a8d4a0); color: #2a5a10; border-color: #6b9a3a; }
+  .mech-table th.col-e2  { background: linear-gradient(to bottom, #ffe4e4, #e8a8a8); color: #8a0000; border-color: #c86060; }
+  .mech-table td {
+    border: 1px solid #d8d8d8;
+    padding: 5px 8px;
+    vertical-align: top;
+  }
+  .mech-table td.rowhead {
+    background: #f4f4ec;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+  }
+  .mech-table tr:nth-child(even) td:not(.rowhead) { background: #fafafa; }
+
+  /* Inline tag styles */
+  .tag {
+    display: inline-block;
+    padding: 0 4px;
+    font-size: 9px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid;
+    vertical-align: 1px;
+    margin: 0 2px;
+  }
+  .tag.sn1 { background: #ffe8b8; border-color: #b88a30; color: #5a3a00; }
+  .tag.sn2 { background: #d4e8ff; border-color: #4a7ac8; color: #1a3a6b; }
+  .tag.e1  { background: #eaf4e8; border-color: #6b9a3a; color: #2a5a10; }
+  .tag.e2  { background: #ffe4e4; border-color: #c86060; color: #8a0000; }
+
+  /* Reaction scheme — monospace */
+  .rxn {
+    background: #f8f8f0;
+    border: 1px dashed #c8c8b8;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-family: "Courier New", "Lucida Console", monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #000;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .rxn .label {
+    color: #888;
+    font-size: 10px;
+    font-family: Tahoma, sans-serif;
+  }
+
+  /* Wiki-style [[link]] */
+  .wikilink {
+    background: #eaf0ff;
+    border: 1px solid #b8c8e8;
+    padding: 0 4px;
+    border-radius: 2px;
+    color: #0033cc;
+    font-size: 11px;
+    text-decoration: none;
+  }
+  .wikilink:hover {
+    background: #fffce0;
+    border-color: #d4c878;
+    color: #ff0000;
+  }
+  .wikilink::before { content: "📄 "; font-size: 10px; }
+
+  /* Attachment embed */
+  .attachment {
+    border: 1px solid #a8a8a8;
+    background: #fafafa;
+    padding: 4px;
+    margin: 10px 0;
+    display: inline-block;
+    max-width: 100%;
+    box-shadow: 2px 2px 0 #d4d0c8;
+  }
+  .attachment .frame {
+    background: linear-gradient(135deg, #d4e4f0, #a8c4dc);
+    width: 420px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    color: #2a5a9a;
+    border: 1px solid #6b83a8;
+  }
+  .attachment .caption {
+    background: #ece9d8;
+    padding: 3px 6px;
+    font-size: 10px;
+    color: #555;
+    border-top: 1px solid #c8c4b4;
+    margin-top: 4px;
+  }
+  .attachment .caption b { color: #000; }
+
+  /* Side panels */
+  .side-panel .webpart-header {
+    background: linear-gradient(to bottom, #ffe8b8 0%, #f4c870 100%);
+    border-bottom: 1px solid #b88a30;
+    color: #5a3a00;
+  }
+  .side-panel ul {
+    list-style: none; margin: 0; padding: 0;
+    font-size: 11px;
+  }
+  .side-panel ul li {
+    padding: 4px 6px;
+    border-bottom: 1px dotted #d8d8d8;
+  }
+  .side-panel ul li:last-child { border-bottom: none; }
+
+  .prop-table { width: 100%; font-size: 10px; }
+  .prop-table td { padding: 2px 4px; vertical-align: top; }
+  .prop-table td.k { color: #555; font-weight: bold; width: 45%; }
+
+  /* Comments panel */
+  .comment {
+    background: #f4f4ec;
+    border: 1px solid #c8c8b8;
+    padding: 5px 6px;
+    margin: 4px 6px;
+    font-size: 10px;
+  }
+  .comment .who { font-weight: bold; color: #1a3a6b; }
+  .comment .when { color: #888; font-size: 9px; }
+  .comment .body { margin-top: 2px; color: #333; }
+
+  /* Version history */
+  .vhist {
+    font-size: 10px;
+    color: #333;
+  }
+  .vhist .v {
+    padding: 3px 6px;
+    border-bottom: 1px dotted #d8d8d8;
+  }
+  .vhist .v b { color: #1a3a6b; font-family: "Courier New", monospace; }
+  .vhist .v small { color: #888; }
+
+  /* Backlinks */
+  .backlink-item {
+    padding: 3px 6px !important;
+    border-bottom: 1px dotted #d8d8d8;
+  }
+  .backlink-item .ref {
+    font-size: 9px; color: #888;
+    font-style: italic;
+  }
+
+  /* Footer */
+  .footer {
+    background: linear-gradient(to bottom, #eaeaea, #d4d0c8);
+    border-top: 1px solid #8a8a8a;
+    padding: 6px 10px;
+    margin-top: 10px;
+    font-size: 10px;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* MathJax sizing inside formula blocks */
+  mjx-container { font-size: 110% !important; }
+</style>
+</head>
+<body>
+
+<!-- Top banner -->
+<div class="banner">
+  <div class="logo">P</div>
+  <div class="title-area">
+    <div class="t1">Personal Knowledge Portal</div>
+    <div class="t2">Enterprise Edition v3.2.1 &nbsp;|&nbsp; A Knowledge Management Solution for the Individual</div>
+  </div>
+  <div class="user-area">
+    Welcome back, <span class="u1">J. Researcher</span><br/>
+    <a>My Profile</a> &nbsp;|&nbsp; <a>Help</a> &nbsp;|&nbsp; <a>Sign Out</a>
+  </div>
+</div>
+
+<!-- Subnav -->
+<div class="subnav">
+  <span class="tab">Home</span>
+  <span class="tab active">Notebooks</span>
+  <span class="tab">Attachments Library</span>
+  <span class="tab">Recent Activity</span>
+  <span class="tab">Site Settings</span>
+</div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <span class="breadcrumb-right">Page last modified: 04/22/2026 09:41 AM by J. Researcher | Auto-save: ON</span>
+  <a>Home</a> <span class="sep">&gt;</span>
+  <a>Notebooks</a> <span class="sep">&gt;</span>
+  <a>Chemistry Study Notes</a> <span class="sep">&gt;</span>
+  <a>Module 4 — Organic Chemistry</a> <span class="sep">&gt;</span>
+  <span class="current">4.5 Reaction mechanisms — SN1, SN2, E1, E2</span>
+</div>
+
+<div class="wrap">
+<div class="layout">
+
+  <!-- ===== LEFT: PAGE TREE ===== -->
+  <div class="left-col">
+
+    <div class="webpart">
+      <div class="webpart-header">
+        <span>📕 Chemistry Study Notes</span>
+        <span class="actions">[<a>−</a>]</span>
+      </div>
+      <div class="webpart-body" style="padding: 0;">
+        <ul class="tree-list tree-pane">
+          <li><a>📄 Course Syllabus &amp; Overview</a></li>
+          <li class="folder"><a>📕 Module 1 — Atomic Structure</a> <small>4p</small></li>
+          <li class="folder"><a>📗 Module 2 — Chemical Bonding</a> <small>5p</small></li>
+          <li class="folder"><a>📘 Module 3 — Thermo &amp; Kinetics</a> <small>6p</small></li>
+          <li class="folder"><a>📙 Module 4 — Organic Chemistry</a> <small>8p</small></li>
+          <li class="indent"><a>4.1 Functional groups</a></li>
+          <li class="indent"><a>4.2 Nomenclature (IUPAC)</a></li>
+          <li class="indent"><a>4.3 Stereochemistry — R/S</a></li>
+          <li class="indent question"><a>❓ 4.4 Open questions</a></li>
+          <li class="current indent"><a>4.5 SN1, SN2, E1, E2</a></li>
+          <li class="indent"><a>4.6 Problem set 4</a></li>
+          <li class="indent"><a>4.7 Addition reactions <i>(draft)</i></a></li>
+          <li class="folder"><a>📔 Lab Notebook</a> <small>6p</small></li>
+          <li class="folder"><a>⭐ Exam Review</a> <small>4p</small></li>
+          <li class="folder question"><a>❓ Open Questions (Master)</a> <small>11</small></li>
+          <li><a>✦ <i>End-of-term summary</i></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="webpart">
+      <div class="webpart-header"><span>🔖 Page Outline</span></div>
+      <div class="webpart-body" style="font-size: 10px; line-height: 1.6;">
+        <a>» Overview</a><br/>
+        <a>» The 2×2 decision</a><br/>
+        <a>» SN2 mechanism</a><br/>
+        <a>» SN1 mechanism</a><br/>
+        <a>» E2 mechanism</a><br/>
+        <a>» E1 mechanism</a><br/>
+        <a>» Comparison table</a><br/>
+        <a>» Decision flowchart</a><br/>
+        <a>» Worked example</a><br/>
+        <a>» Open questions</a><br/>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== MAIN: THE PAGE ===== -->
+  <div class="main-col">
+
+    <!-- Page header -->
+    <div class="section-heading">▸ Page: 4.5 Reaction mechanisms — SN1, SN2, E1, E2</div>
+    <div class="page-head">
+      <span class="icon">📄</span>
+      <div class="title-block">
+        <h1>4.5 Reaction mechanisms — S<sub>N</sub>1, S<sub>N</sub>2, E1, E2</h1>
+        <div class="subtitle">Substrate, nucleophile, solvent, leaving group — decision tree for predicting products</div>
+        <div class="meta-row">
+          <span>📂 <b>Module 4 — Organic Chemistry</b></span>
+          <span>📝 <b>1,876 words</b></span>
+          <span>🔗 <b>2 outgoing links</b></span>
+          <span>⏱ modified <b>4 days ago</b></span>
+          <span>👤 J. Researcher</span>
+          <span>🔢 Version <b>1.0.8</b></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WYSIWYG toolbar -->
+    <div class="wysiwyg-bar">
+      <span class="wbtn dropdown"><select><option>Paragraph</option><option>Heading 1</option><option>Heading 2</option><option>Code</option></select></span>
+      <span class="wbtn dropdown"><select><option>Verdana</option><option>Tahoma</option><option>Arial</option><option>Times</option><option>Courier New</option></select></span>
+      <span class="wbtn dropdown"><select><option>12pt</option><option>10pt</option><option>11pt</option><option>14pt</option></select></span>
+      <span class="wsep"></span>
+      <span class="wbtn bold active" title="Bold">B</span>
+      <span class="wbtn italic" title="Italic">I</span>
+      <span class="wbtn under" title="Underline">U</span>
+      <span class="wbtn strike" title="Strike">S</span>
+      <span class="wbtn" title="Superscript">x²</span>
+      <span class="wbtn" title="Subscript">x₂</span>
+      <span class="wsep"></span>
+      <span class="wbtn" title="Text color"><span class="swatch" style="background:#c00000"></span>A</span>
+      <span class="wbtn" title="Highlight"><span class="swatch" style="background:#ffff00"></span>ab</span>
+      <span class="wsep"></span>
+      <span class="wbtn" title="Align left">☰</span>
+      <span class="wbtn" title="Align center">☰</span>
+      <span class="wbtn" title="Align right">☰</span>
+      <span class="wbtn" title="Justify">☰</span>
+      <span class="wsep"></span>
+      <span class="wbtn" title="Bulleted list">•≡</span>
+      <span class="wbtn" title="Numbered list">1≡</span>
+      <span class="wbtn" title="Decrease indent">⇤</span>
+      <span class="wbtn" title="Increase indent">⇥</span>
+      <span class="wsep"></span>
+      <span class="wbtn" title="Insert link">🔗</span>
+      <span class="wbtn" title="Insert image">🖼️</span>
+      <span class="wbtn" title="Insert table">▦</span>
+      <span class="wbtn" title="Horizontal rule">—</span>
+      <span class="wsep"></span>
+      <span class="wbtn active" title="Insert formula" style="font-family: 'Cambria Math', serif; font-style: italic;">𝑓𝑥</span>
+      <span class="wbtn" title="Chemistry">⚛</span>
+      <span class="wbtn" title="Symbol">Ω</span>
+      <span class="wbtn" title="Code block">&lt;/&gt;</span>
+      <span class="wsep"></span>
+      <span class="wbtn" title="Undo">↶</span>
+      <span class="wbtn" title="Redo">↷</span>
+      <span class="wbtn" title="Find">⌕</span>
+      <span class="wbtn" title="Spellcheck">ABC✓</span>
+    </div>
+
+    <!-- Save status -->
+    <div class="save-row">
+      <span class="status">✓ <b>Saved</b> automatically to local database &nbsp;·&nbsp; Last auto-save: 09:41:17 AM &nbsp;·&nbsp; Words: 1,876 &nbsp;·&nbsp; Characters: 11,204</span>
+      <span class="actions-right">
+        <span class="abtn">Preview</span>
+        <span class="abtn">Revert</span>
+        <span class="abtn primary">Check In</span>
+      </span>
+    </div>
+
+    <!-- Page body -->
+    <div class="page-body">
+
+      <p>The four workhorse mechanisms of introductory organic: two <b>substitution</b> paths (<span class="tag sn1">SN1</span> <span class="tag sn2">SN2</span>) and two <b>elimination</b> paths (<span class="tag e1">E1</span> <span class="tag e2">E2</span>). See also <a class="wikilink">4.1 Functional groups</a> for leaving-group context and <a class="wikilink">4.3 Stereochemistry — R/S</a> for the inversion / retention discussion.</p>
+
+      <div class="callout tip">
+        <div class="kicker">★ Mnemonic</div>
+        <b>"1 = carbocation, 2 = concerted."</b> The digit tells you the <b>molecularity of the rate-determining step</b>. Everything else (stereochemistry, kinetics, substrate preference) falls out of that single fact.
+      </div>
+
+      <h2>Overview &amp; the 2×2 decision</h2>
+
+      <p>Every time you see an alkyl halide (or similar substrate with a leaving group) react with a nucleophile/base, you're choosing between four possibilities on a 2×2 grid:</p>
+
+      <table class="mech-table">
+        <tr>
+          <th></th>
+          <th style="text-align:center;">Unimolecular (1)</th>
+          <th style="text-align:center;">Bimolecular (2)</th>
+        </tr>
+        <tr>
+          <td class="rowhead">Substitution (S<sub>N</sub>)</td>
+          <td style="text-align:center;"><span class="tag sn1">SN1</span> via carbocation</td>
+          <td style="text-align:center;"><span class="tag sn2">SN2</span> concerted, backside</td>
+        </tr>
+        <tr>
+          <td class="rowhead">Elimination (E)</td>
+          <td style="text-align:center;"><span class="tag e1">E1</span> via carbocation</td>
+          <td style="text-align:center;"><span class="tag e2">E2</span> concerted, anti-periplanar</td>
+        </tr>
+      </table>
+
+      <p>The rate laws tell the story:</p>
+
+      <div class="formula-block">
+        $$\text{rate}_{\mathrm{S_N1}} = k\,[\mathrm{R\text{-}LG}] \qquad \text{rate}_{\mathrm{S_N2}} = k\,[\mathrm{R\text{-}LG}]\,[\mathrm{Nu}^-]$$
+        <span class="eq-num">(4.5.1)</span>
+      </div>
+
+      <div class="formula-block">
+        $$\text{rate}_{\mathrm{E1}} = k\,[\mathrm{R\text{-}LG}] \qquad \text{rate}_{\mathrm{E2}} = k\,[\mathrm{R\text{-}LG}]\,[\mathrm{B}^-]$$
+        <span class="eq-num">(4.5.2)</span>
+      </div>
+
+      <p>In words: the <b>unimolecular</b> reactions (<span class="tag sn1">SN1</span> <span class="tag e1">E1</span>) don't care how much nucleophile or base is around — they're gated by how fast the leaving group departs. The <b>bimolecular</b> reactions (<span class="tag sn2">SN2</span> <span class="tag e2">E2</span>) depend on both concentrations because bond-breaking and bond-making are concerted.</p>
+
+      <h2>S<sub>N</sub>2 — concerted, backside attack</h2>
+
+      <p>One-step: the nucleophile attacks the carbon bearing the leaving group from the <b>opposite face</b>, and the leaving group departs at the same instant. Inversion of configuration ("Walden inversion") is guaranteed at a chiral center.</p>
+
+      <div class="rxn"><span class="label">          Backside attack → Walden inversion</span>
+
+         Nu⁻                           Nu
+          ↓                             │
+     H    │    H                    H   │   H
+      \   │   /                      \  │  /
+       \  │  /         ──→            \ │ /
+        C─LG                           C       +  LG⁻
+       /                              /│\
+      H                              H │ H
+                                       (inverted)
+</div>
+
+      <p>Rate scales with substrate: <b>methyl &gt; 1° &gt; 2° ≫ 3°</b>. Tertiary substrates are essentially inert to <span class="tag sn2">SN2</span> — the three alkyl groups block the backside approach. Quantitatively, the Arrhenius-type rate dependence on steric bulk can be expressed as:</p>
+
+      <div class="formula-block">
+        $$k_{\mathrm{S_N2}} \propto \exp\!\left(-\frac{E_a^{\ddagger} + \Delta E_{\text{steric}}}{RT}\right)$$
+        <span class="eq-num">(4.5.3)</span>
+      </div>
+
+      <p>where the activation barrier $E_a^{\ddagger}$ gets an extra steric penalty $\Delta E_{\text{steric}}$ that rises sharply with substitution at the α-carbon. <b>Favored by:</b> strong nucleophile, polar aprotic solvent (DMSO, DMF, acetone), unhindered substrate.</p>
+
+      <h2>S<sub>N</sub>1 — stepwise via carbocation</h2>
+
+      <p>Two steps: (1) slow ionization to a carbocation; (2) fast nucleophilic capture. The carbocation is planar (sp²), so the nucleophile can attack either face → <b>racemization</b> at a chiral center (usually 50:50, sometimes skewed by ion-pair effects).</p>
+
+      <div class="formula-block">
+        $$\mathrm{R\text{-}LG} \;\xrightarrow{\text{slow}}\; \mathrm{R^{+}} + \mathrm{LG^{-}} \;\xrightarrow{\text{fast},\,\mathrm{Nu}^{-}}\; \mathrm{R\text{-}Nu}$$
+        <span class="eq-num">(4.5.4)</span>
+      </div>
+
+      <p>Carbocation stability is the entire ball game:</p>
+
+      <div class="formula-block">
+        $$\mathrm{3^\circ} > \mathrm{2^\circ} \gg \mathrm{1^\circ} > \mathrm{CH_3^+}$$
+        <span class="eq-num">(4.5.5)</span>
+      </div>
+
+      <p><b>Favored by:</b> stabilized carbocation (3°, allylic, benzylic), polar <i>protic</i> solvent (water, alcohols — they solvate the ion pair), weak nucleophile. Note the direct inversion of the SN2 substrate preference — 3° substrates that refuse to undergo SN2 happily go SN1.</p>
+
+      <h2>E2 — concerted anti-periplanar elimination</h2>
+
+      <p>Base removes β-hydrogen <i>as</i> the leaving group departs, forming the π-bond in one step. Requires the <b>H and LG to be anti-periplanar</b> (dihedral ≈ 180°) for maximum orbital overlap.</p>
+
+      <div class="rxn"><span class="label">          Anti-periplanar transition state</span>
+
+            B:⁻
+             ↓
+        H    │
+        │    │               B-H
+        Cβ───Cα              │
+       /      \    ──→      Cβ═Cα    +   LG⁻
+      /        \            /    \
+                 LG
+      (H and LG at 180°)    (π-bond formed)
+</div>
+
+      <p>Regiochemistry generally follows <b>Zaitsev's rule</b> — the more substituted alkene is more stable and dominates:</p>
+
+      <div class="formula-block">
+        $$\text{stability: } R_2C{=}CR_2 > R_2C{=}CHR > R_2C{=}CH_2 > RHC{=}CHR > RHC{=}CH_2 > H_2C{=}CH_2$$
+        <span class="eq-num">(4.5.6)</span>
+      </div>
+
+      <p>With bulky bases (e.g. <code>t</code>-BuO⁻), <b>Hofmann's rule</b> takes over and the less-substituted alkene dominates (steric access to the less-hindered β-H).</p>
+
+      <h2>E1 — stepwise via carbocation</h2>
+
+      <p>Same first step as <span class="tag sn1">SN1</span> (slow ionization to carbocation), then base abstracts a β-hydrogen. Because it's the same carbocation intermediate, <span class="tag sn1">SN1</span> and <span class="tag e1">E1</span> are <b>always competitors</b> — you'll get a mixture, with temperature favoring E1 (entropy) and nucleophile strength favoring SN1.</p>
+
+      <p>The product ratio can be estimated from the Eyring equation applied to the second-step transition states:</p>
+
+      <div class="formula-block">
+        $$\frac{[\text{alkene}]}{[\text{substitution product}]} \;=\; \exp\!\left(-\frac{\Delta\Delta G^{\ddagger}_{\text{E1}-\text{S_N1}}}{RT}\right)$$
+        <span class="eq-num">(4.5.7)</span>
+      </div>
+
+      <p>At higher $T$, the $T\Delta S^{\ddagger}$ contribution favors the elimination path (one molecule becomes two, $\Delta S^{\ddagger} > 0$), which is the thermodynamic argument behind the classical lab rule: <b>"heat favors elimination."</b></p>
+
+      <h2>Side-by-side comparison</h2>
+
+      <table class="mech-table">
+        <tr>
+          <th style="width:18%;">Property</th>
+          <th class="col-sn1">S<sub>N</sub>1</th>
+          <th class="col-sn2">S<sub>N</sub>2</th>
+          <th class="col-e1">E1</th>
+          <th class="col-e2">E2</th>
+        </tr>
+        <tr>
+          <td class="rowhead">Kinetics</td>
+          <td>1st order ($k[\mathrm{RX}]$)</td>
+          <td>2nd order ($k[\mathrm{RX}][\mathrm{Nu}]$)</td>
+          <td>1st order ($k[\mathrm{RX}]$)</td>
+          <td>2nd order ($k[\mathrm{RX}][\mathrm{B}]$)</td>
+        </tr>
+        <tr>
+          <td class="rowhead">Steps</td>
+          <td>Two (ionization, capture)</td>
+          <td>One (concerted)</td>
+          <td>Two (ionization, deprot.)</td>
+          <td>One (concerted)</td>
+        </tr>
+        <tr>
+          <td class="rowhead">Substrate preference</td>
+          <td>3° ≫ 2° ≫ 1°</td>
+          <td>methyl &gt; 1° &gt; 2° ≫ 3°</td>
+          <td>3° ≫ 2° ≫ 1°</td>
+          <td>3° &gt; 2° &gt; 1°</td>
+        </tr>
+        <tr>
+          <td class="rowhead">Nu / Base strength</td>
+          <td>Weak nucleophile OK</td>
+          <td>Strong nucleophile required</td>
+          <td>Weak base OK</td>
+          <td>Strong base required</td>
+        </tr>
+        <tr>
+          <td class="rowhead">Solvent</td>
+          <td>Polar <b>protic</b> (H₂O, ROH)</td>
+          <td>Polar <b>aprotic</b> (DMSO, DMF)</td>
+          <td>Polar protic</td>
+          <td>Varies (often protic)</td>
+        </tr>
+        <tr>
+          <td class="rowhead">Stereochem.</td>
+          <td>Racemization</td>
+          <td><b>Inversion</b> (Walden)</td>
+          <td>Mixture (E/Z)</td>
+          <td><b>Anti-periplanar</b> required</td>
+        </tr>
+        <tr>
+          <td class="rowhead">Rearrangements?</td>
+          <td>Yes (hydride/methyl shifts)</td>
+          <td>No</td>
+          <td>Yes (same carbocation)</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td class="rowhead">Regiochem.</td>
+          <td>N/A</td>
+          <td>N/A</td>
+          <td>Zaitsev (thermodynamic)</td>
+          <td>Zaitsev, or Hofmann if bulky base</td>
+        </tr>
+      </table>
+
+      <!-- Attachment -->
+      <div class="attachment">
+        <div class="frame">🧪</div>
+        <div class="caption">
+          <b>PLATE 7:</b> sn1-vs-sn2-decision.png &nbsp;·&nbsp; decision flowchart from lecture slides
+          &nbsp;·&nbsp; <a>View full size</a>
+          &nbsp;·&nbsp; <a>Replace</a>
+        </div>
+      </div>
+
+      <h2>Worked example: 2-bromo-2-methylbutane + methanol</h2>
+
+      <p>Given <code>(CH₃)₂C(Br)CH₂CH₃</code> (tertiary alkyl bromide) dissolved in methanol at room temperature. Predict products.</p>
+
+      <p><b>Analysis:</b></p>
+      <ol>
+        <li>Substrate is <b>3°</b> → rules out <span class="tag sn2">SN2</span> (steric block at α-carbon).</li>
+        <li>Solvent is <b>polar protic</b> (MeOH) and methanol is a <b>weak nucleophile / weak base</b> → rules out <span class="tag e2">E2</span>.</li>
+        <li>Remaining options: <span class="tag sn1">SN1</span> and <span class="tag e1">E1</span>, both via the same tertiary carbocation.</li>
+      </ol>
+
+      <div class="formula-block">
+        $$(\mathrm{CH_3})_2\mathrm{C(Br)CH_2CH_3} \;\xrightarrow{\text{MeOH}}\; (\mathrm{CH_3})_2\mathrm{C^{+}CH_2CH_3} + \mathrm{Br^{-}}$$
+        <span class="eq-num">(4.5.8)</span>
+      </div>
+
+      <p>From the carbocation, two pathways:</p>
+
+      <ul>
+        <li><b>SN1 product:</b> MeOH attacks C⁺ → 2-methoxy-2-methylbutane (after deprotonation)</li>
+        <li><b>E1 product:</b> MeOH (as a weak base) removes β-H → <b>2-methyl-2-butene</b> (Zaitsev, trisubstituted) as major, plus minor 2-methyl-1-butene.</li>
+      </ul>
+
+      <p>Typical ratio at room temperature: ~60:40 SN1:E1. <b>Heat the reaction and the ratio flips</b> — consistent with equation (4.5.7) and the positive $\Delta S^{\ddagger}$ for elimination.</p>
+
+      <h2>Decision heuristic (for exam)</h2>
+
+      <div class="callout">
+        <div class="kicker">★ 4-step decision</div>
+        <ol style="margin-top: 2px;">
+          <li><b>Substrate class?</b> Methyl/1° → SN2 almost always. 3° → never SN2.</li>
+          <li><b>Strong base/nucleophile present?</b> Yes → bimolecular (SN2 or E2). No → unimolecular (SN1 / E1).</li>
+          <li><b>Substitution or elimination?</b> Bulky base → E. Good nucleophile, unhindered C → S.</li>
+          <li><b>Temperature check:</b> high T tips everything toward elimination.</li>
+        </ol>
+      </div>
+
+      <div class="callout question">
+        <div class="kicker">❓ Open question — for Prof. K's office hours</div>
+        The textbook says allylic and benzylic <b>primary</b> substrates undergo SN1 despite being 1° — because of resonance stabilization of the carbocation. But how do we quantify "enough resonance stabilization"? Is there a rule-of-thumb $\Delta G_f^{\circ}$ cutoff for the carbocation where SN1 becomes viable for a 1° center? <a class="wikilink">❓ Open Questions (Master)</a>
+      </div>
+
+      <h3>Related pages in this notebook</h3>
+      <p>
+        <a class="wikilink">4.1 Functional groups</a>
+        <a class="wikilink">4.3 Stereochemistry — R/S</a>
+        <a class="wikilink">4.6 Problem set 4</a>
+        <a class="wikilink">3.2 Rate laws &amp; reaction order</a>
+      </p>
+
+    </div>
+
+    <!-- Footer for page -->
+    <div style="background: #ece9d8; padding: 4px 10px; font-size: 10px; border: 1px solid #a8a8a8; border-top: none;">
+      <b>Page controls:</b> &nbsp;
+      <a>Edit page</a> &nbsp;|&nbsp;
+      <a>Version history (8 revisions)</a> &nbsp;|&nbsp;
+      <a>Page permissions</a> &nbsp;|&nbsp;
+      <a>Move to another notebook</a> &nbsp;|&nbsp;
+      <a>Duplicate</a> &nbsp;|&nbsp;
+      <a>Export as PDF</a> &nbsp;|&nbsp;
+      <a>Print</a> &nbsp;|&nbsp;
+      <a style="color: #c00;">Delete page</a>
+    </div>
+
+  </div>
+
+  <!-- ===== RIGHT SIDEBAR ===== -->
+  <div class="right-col">
+
+    <div class="webpart side-panel">
+      <div class="webpart-header"><span>📋 Page Properties</span></div>
+      <div class="webpart-body" style="padding: 4px 6px;">
+        <table class="prop-table">
+          <tr><td class="k">Page ID:</td><td>PG-00421</td></tr>
+          <tr><td class="k">Type:</td><td>📄 Content</td></tr>
+          <tr><td class="k">Parent:</td><td>Module 4</td></tr>
+          <tr><td class="k">Order:</td><td>5 of 8</td></tr>
+          <tr><td class="k">Created:</td><td>04/18/2026</td></tr>
+          <tr><td class="k">Modified:</td><td>04/22/2026</td></tr>
+          <tr><td class="k">Words:</td><td><b>1,876</b></td></tr>
+          <tr><td class="k">Reading time:</td><td>~9 min</td></tr>
+          <tr><td class="k">Status:</td><td><b style="color:#2a5a10;">PUBLISHED</b></td></tr>
+          <tr><td class="k">Version:</td><td>1.0.8</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="webpart side-panel">
+      <div class="webpart-header"><span>🔗 Linked Pages</span></div>
+      <ul>
+        <li class="backlink-item">
+          <a>4.1 Functional groups</a>
+          <div class="ref">outgoing · "leaving-group context"</div>
+        </li>
+        <li class="backlink-item">
+          <a>4.3 Stereochemistry — R/S</a>
+          <div class="ref">outgoing · "inversion / retention"</div>
+        </li>
+        <li class="backlink-item">
+          <a>3.2 Rate laws &amp; reaction order</a>
+          <div class="ref">outgoing · "rate law"</div>
+        </li>
+        <li class="backlink-item">
+          <a>4.6 Problem set 4</a>
+          <div class="ref"><b>incoming</b> · referenced in solutions</div>
+        </li>
+        <li class="backlink-item">
+          <a>❓ Open Questions (Master)</a>
+          <div class="ref"><b>incoming</b> · 1 question</div>
+        </li>
+        <li class="backlink-item">
+          <a>⭐ Exam Review</a>
+          <div class="ref"><b>incoming</b> · flowchart cited</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="webpart side-panel">
+      <div class="webpart-header"><span>📎 Attachments</span></div>
+      <ul>
+        <li>
+          <a>🖼️ sn1-vs-sn2-decision.png</a>
+          <div style="font-size: 9px; color: #888;">267 KB · embedded above</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="webpart side-panel">
+      <div class="webpart-header"><span>🕐 Version History</span></div>
+      <div class="vhist">
+        <div class="v">
+          <b>v1.0.8</b> · 04/22 09:41 — <small>added worked example</small>
+        </div>
+        <div class="v">
+          <b>v1.0.7</b> · 04/20 22:03 — <small>fixed rate law subscripts</small>
+        </div>
+        <div class="v">
+          <b>v1.0.6</b> · 04/19 14:22 — <small>added Hofmann rule note</small>
+        </div>
+        <div class="v">
+          <b>v1.0.5</b> · 04/18 19:45 — <small>expanded E1/E2 section</small>
+        </div>
+        <div class="v">
+          <b>v1.0.4</b> · 04/18 11:08 — <small>first complete draft</small>
+        </div>
+        <div class="v" style="text-align: center; padding-top: 4px;">
+          <a>View all 8 revisions →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="webpart side-panel">
+      <div class="webpart-header"><span>💬 Margin Notes</span></div>
+      <div class="comment">
+        <span class="who">me</span> <span class="when">· 04/20 22:10</span>
+        <div class="body">Remember: methanol here is the <b>nucleophile</b> AND the <b>solvent</b>. Solvolysis. Professor emphasized this in lecture.</div>
+      </div>
+      <div class="comment">
+        <span class="who">me</span> <span class="when">· 04/19 15:00</span>
+        <div class="body">Check eq. 4.5.7 — does $T\Delta S$ dominate at T&gt;60°C? Revisit for Module 3 cross-reference.</div>
+      </div>
+      <div class="comment" style="background: #ffe8d0; border-color: #d48a30;">
+        <span class="who" style="color:#8a4a00;">⚠ TODO</span> <span class="when">· 04/22</span>
+        <div class="body">Add second worked example with <b>primary</b> benzylic substrate to test understanding of the SN1 exception.</div>
+      </div>
+    </div>
+
+    <div class="webpart side-panel">
+      <div class="webpart-header"><span>🏷️ Tags</span></div>
+      <div style="padding: 4px 6px; font-size: 10px;">
+        <span class="tag sn1" style="text-transform: lowercase;">organic</span>
+        <span class="tag sn2" style="text-transform: lowercase;">mechanisms</span>
+        <span class="tag e1" style="text-transform: lowercase;">CHEM 202</span>
+        <span class="tag e2" style="text-transform: lowercase;">exam-relevant</span>
+        <span class="tag" style="background: #f4f4ec; color: #555; border-color: #c8c8b8; text-transform: lowercase;">+ add tag</span>
+      </div>
+    </div>
+
+    <div class="webpart side-panel">
+      <div class="webpart-header"><span>📊 Page Stats</span></div>
+      <div class="webpart-body" style="font-size: 10px; line-height: 1.7;">
+        Edits this week: <b>4</b><br/>
+        Last viewed: <b>just now</b><br/>
+        View count: <b>17</b><br/>
+        Formulas rendered: <b>8</b><br/>
+        Internal links: <b>5</b><br/>
+        Code blocks: <b>2</b><br/>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div>
+    &copy; 2026 Personal Knowledge Portal &nbsp;|&nbsp; v3.2.1 (build 20260418)
+    &nbsp;|&nbsp; <a>Terms of Use</a>
+    &nbsp;|&nbsp; <a>Privacy Policy</a>
+    &nbsp;|&nbsp; <a>Accessibility</a>
+  </div>
+  <div>
+    Rendering: MathJax 3.2 &nbsp;|&nbsp; Database: SQLite 3.42 &nbsp;|&nbsp; ✓ Best viewed in Internet Explorer 7+
+  </div>
+</div>
+
+</body>
+</html>
