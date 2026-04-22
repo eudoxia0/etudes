@@ -1,0 +1,50 @@
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #e9eef2;
+    display: flex;
+}
+
+.root {
+    flex: 1;
+    padding: 16px;
+}
+
+.nav {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+
+    li {
+        padding: 4px 8px;
+        border: 1px solid gray;
+        border-bottom: none;
+        background: #ced7e0;
+
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+    }
+
+    .active {
+        background: white;
+        margin-bottom: -1px;
+    }
+}
+
+.tab-content {
+    padding: 8px;
+    background: white;
+    border: 1px solid gray;
+}
