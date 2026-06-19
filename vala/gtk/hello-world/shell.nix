@@ -5,7 +5,7 @@ pkgs.mkShell {
     vala
     pkg-config
     gobject-introspection
-    wrapGAppsHook3
+    wrapGAppsHook4
   ];
 
   buildInputs = with pkgs; [
