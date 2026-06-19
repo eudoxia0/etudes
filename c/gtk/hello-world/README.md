@@ -1,3 +1,5 @@
+![Screenshot of the app.](screenshot.png)
+
 To build:
 
 ```
