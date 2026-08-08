@@ -1,0 +1,23 @@
+{
+  "name": "vue-todo",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "check": "vue-tsc -b",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "pinia": "^2.2.2",
+    "vue": "^3.5.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.2",
+    "typescript": "~5.5.4",
+    "vite": "^5.4.1",
+    "vue-tsc": "^2.1.4"
+  },
+  "packageManager": "pnpm@9.7.1"
+}
