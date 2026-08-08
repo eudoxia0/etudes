@@ -8,7 +8,11 @@ const store: TodoStore = useTodoStore();
 </script>
 
 <template>
-    <li class="todo-item" :class="{ done: todo.done }">
+    <li
+        class="todo-item"
+        :class="{ done: todo.done, selected: todo.id === store.selectedId }"
+        @click="store.select(todo.id)"
+    >
         <label>
             <input
                 type="checkbox"
@@ -17,7 +21,11 @@ const store: TodoStore = useTodoStore();
             />
             <span>{{ todo.text }}</span>
         </label>
-        <button class="remove" type="button" @click="store.remove(todo.id)">
+        <button
+            class="remove"
+            type="button"
+            @click.stop="store.remove(todo.id)"
+        >
             ✕
         </button>
     </li>
@@ -28,8 +36,15 @@ const store: TodoStore = useTodoStore();
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.4rem 0;
+    padding: 0.4rem 0.5rem;
     border-bottom: 1px solid #e0e0e0;
+    border-left: 3px solid transparent;
+    cursor: pointer;
+}
+
+.todo-item.selected {
+    background: #eef4ff;
+    border-left-color: #3b6fe0;
 }
 
 .todo-item label {

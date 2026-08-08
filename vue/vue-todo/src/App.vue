@@ -1,37 +1,51 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref, Ref } from "vue";
 import { TodoStore, useTodoStore } from "./stores/todos";
 import TodoInput from "./components/TodoInput.vue";
 import TodoList from "./components/TodoList.vue";
 
 const store: TodoStore = useTodoStore();
+const showInput: Ref<boolean> = ref(false);
+
+function onKeydown(event: KeyboardEvent): void {
+    if (showInput.value) return;
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+
+    switch (event.key) {
+        case "a":
+            event.preventDefault();
+            showInput.value = true;
+            break;
+        case "j":
+            event.preventDefault();
+            store.selectNext();
+            break;
+        case "k":
+            event.preventDefault();
+            store.selectPrev();
+            break;
+        case "x":
+            event.preventDefault();
+            store.toggleSelected();
+            break;
+    }
+}
+
+onMounted(() => window.addEventListener("keydown", onKeydown));
+onUnmounted(() => window.removeEventListener("keydown", onKeydown));
 </script>
 
 <template>
     <main class="app">
-        <h1>Todo</h1>
-        <TodoInput />
         <TodoList />
-        <p v-if="store.todos.length" class="status">
-            {{ store.remaining }} remaining
-        </p>
+        <TodoInput v-if="showInput" @close="showInput = false" />
     </main>
 </template>
 
 <style scoped>
 .app {
-    max-width: 32rem;
-    margin: 3rem auto;
-    padding: 0 1rem;
-}
-
-h1 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.status {
-    margin-top: 1rem;
-    color: #666;
-    font-size: 0.9rem;
+    width: 600px;
+    margin: 0 auto;
+    padding: 24px;
 }
 </style>
