@@ -44,8 +44,6 @@ onUnmounted(() => window.removeEventListener("keydown", onKeydown));
 
 <style scoped>
 .app {
-    width: 600px;
-    margin: 0 auto;
     padding: 24px;
 }
 </style>
