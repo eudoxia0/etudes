@@ -39,6 +39,10 @@ const store: TodoStore = useTodoStore();
     cursor: pointer;
 }
 
+.todo-item:last-child {
+    border-bottom: 0;
+}
+
 .todo-item.selected {
     background: #eef4ff;
     border-left-color: #3b6fe0;
