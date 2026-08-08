@@ -15,7 +15,6 @@ const store: TodoStore = useTodoStore();
 <style scoped>
 .todo-list {
     list-style: none;
-    padding: 24px;
 }
 
 .empty {
