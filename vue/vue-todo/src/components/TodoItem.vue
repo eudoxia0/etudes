@@ -14,11 +14,8 @@ const store: TodoStore = useTodoStore();
         @click="store.select(todo.id)"
     >
         <label>
-            <input
-                type="checkbox"
-                :checked="todo.done"
-                @change="store.toggle(todo.id)"
-            />
+            <button class="task-toggle" v-if="todo.done">✓</button>
+            <button class="task-toggle" v-else></button>
             <span>{{ todo.text }}</span>
         </label>
         <button
@@ -36,7 +33,7 @@ const store: TodoStore = useTodoStore();
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.4rem 0.5rem;
+    padding: 4px 8px;
     border-bottom: 1px solid #e0e0e0;
     border-left: 3px solid transparent;
     cursor: pointer;
@@ -50,11 +47,28 @@ const store: TodoStore = useTodoStore();
 .todo-item label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
+}
+
+.task-toggle {
+    width: 24px;
+    height: 24px;
+    font-size: 20px;
+    background: white;
+    border: 1px solid #888;
+    border-top-color: #555;
+    border-left-color: #555;
+    box-shadow:
+        inset 1px 1px 0 #d4d4d4,
+        inset -1px -1px 0 #fff;
+    padding: 0;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .todo-item.done span {
-    text-decoration: line-through;
     color: #999;
 }
 
@@ -63,7 +77,7 @@ const store: TodoStore = useTodoStore();
     border: none;
     color: #999;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 .todo-item .remove:hover {
