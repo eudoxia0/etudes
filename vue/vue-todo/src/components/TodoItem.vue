@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Todo } from "../types";
 import { TodoStore, useTodoStore } from "../stores/todos";
+import TaskCompletionIndicator from "./TaskCompletionIndicator.vue";
 
 defineProps<{ todo: Todo }>();
 
@@ -14,8 +15,7 @@ const store: TodoStore = useTodoStore();
         @click="store.select(todo.id)"
     >
         <label>
-            <button class="task-toggle" v-if="todo.done">✓</button>
-            <button class="task-toggle" v-else></button>
+            <TaskCompletionIndicator :completed="todo.done" />
             <span>{{ todo.text }}</span>
         </label>
         <button
@@ -48,24 +48,6 @@ const store: TodoStore = useTodoStore();
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-.task-toggle {
-    width: 24px;
-    height: 24px;
-    font-size: 20px;
-    background: white;
-    border: 1px solid #888;
-    border-top-color: #555;
-    border-left-color: #555;
-    box-shadow:
-        inset 1px 1px 0 #d4d4d4,
-        inset -1px -1px 0 #fff;
-    padding: 0;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .todo-item.done span {
