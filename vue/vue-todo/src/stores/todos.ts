@@ -24,7 +24,9 @@ export const useTodoStore = defineStore("todos", () => {
 
   function add(text: string): void {
     const trimmed = text.trim();
-    if (!trimmed) return;
+    if (!trimmed) {
+      return;
+    }
     const todo: Todo = { id: nextId++, text: trimmed, done: false };
     todos.value.push(todo);
     selectedId.value = todo.id;
@@ -32,12 +34,16 @@ export const useTodoStore = defineStore("todos", () => {
 
   function toggle(id: number): void {
     const todo = todos.value.find((t) => t.id === id);
-    if (todo) todo.done = !todo.done;
+    if (todo) {
+      todo.done = !todo.done;
+    }
   }
 
   function remove(id: number): void {
     const index = todos.value.findIndex((t) => t.id === id);
-    if (index === -1) return;
+    if (index === -1) {
+      return;
+    }
     todos.value.splice(index, 1);
     if (selectedId.value === id) {
       const next = todos.value[index] ?? todos.value[index - 1];
@@ -56,21 +62,27 @@ export const useTodoStore = defineStore("todos", () => {
   }
 
   function selectNext(): void {
-    if (todos.value.length === 0) return;
+    if (todos.value.length === 0) {
+      return;
+    }
     const index = selectedIndex.value;
     const next = index === -1 ? 0 : Math.min(index + 1, todos.value.length - 1);
     selectedId.value = todos.value[next].id;
   }
 
   function selectPrev(): void {
-    if (todos.value.length === 0) return;
+    if (todos.value.length === 0) {
+      return;
+    }
     const index = selectedIndex.value;
     const prev = index === -1 ? 0 : Math.max(index - 1, 0);
     selectedId.value = todos.value[prev].id;
   }
 
   function toggleSelected(): void {
-    if (selectedId.value !== null) toggle(selectedId.value);
+    if (selectedId.value !== null) {
+      toggle(selectedId.value);
+    }
   }
 
   return {

@@ -11,6 +11,7 @@ pnpm i
 
 Actions:
 
-- `pnpm dev` for live reloading.
-- `pnpm check` to typecheck.
-- `pnpm fmt` to format.
+- `pnpm dev`
+- `pnpm check`
+- `pnpm fmt`
+- `pnpm lint`
