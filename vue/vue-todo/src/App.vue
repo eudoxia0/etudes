@@ -3,6 +3,7 @@ import { onMounted, onUnmounted, ref, Ref } from "vue";
 import { TodoStore, useTodoStore } from "./stores/todos";
 import TodoInput from "./components/TodoInput.vue";
 import TodoList from "./components/TodoList.vue";
+import ViewSwitcher from "./components/ViewSwitcher.vue";
 
 const store: TodoStore = useTodoStore();
 const showInput: Ref<boolean> = ref(false);
@@ -32,6 +33,18 @@ function onKeydown(event: KeyboardEvent): void {
       event.preventDefault();
       store.toggleSelected();
       break;
+    case "1":
+      event.preventDefault();
+      store.setView("today");
+      break;
+    case "2":
+      event.preventDefault();
+      store.setView("tomorrow");
+      break;
+    case "3":
+      event.preventDefault();
+      store.setView("all");
+      break;
   }
 }
 
@@ -41,6 +54,7 @@ onUnmounted(() => window.removeEventListener("keydown", onKeydown));
 
 <template>
   <main class="app">
+    <ViewSwitcher />
     <TodoList />
     <TodoInput v-if="showInput" @close="showInput = false" />
   </main>

@@ -17,6 +17,9 @@ const store: TodoStore = useTodoStore();
     <label>
       <TaskCompletionIndicator :completed="todo.done" />
       <span>{{ todo.text }}</span>
+      <span v-if="todo.dueDate" class="due-date" :class="todo.dueDate">
+        {{ todo.dueDate }}
+      </span>
     </label>
     <button class="remove" type="button" @click.stop="store.remove(todo.id)">
       ✕
@@ -64,5 +67,26 @@ const store: TodoStore = useTodoStore();
 
 .todo-item .remove:hover {
   color: #c00;
+}
+
+.due-date {
+  font-size: 11px;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid #999;
+  color: #666;
+  background: #f0f0f0;
+}
+
+.due-date.today {
+  border-color: #c08a00;
+  color: #8a6200;
+  background: #fff6e0;
+}
+
+.due-date.tomorrow {
+  border-color: #3b6fe0;
+  color: #2a52b3;
+  background: #eef4ff;
 }
 </style>
