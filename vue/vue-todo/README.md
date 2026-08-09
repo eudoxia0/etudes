@@ -13,3 +13,4 @@ Actions:
 
 - `pnpm dev` for live reloading.
 - `pnpm check` to typecheck.
+- `pnpm fmt` to format.

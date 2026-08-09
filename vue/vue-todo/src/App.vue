@@ -8,31 +8,31 @@ const store: TodoStore = useTodoStore();
 const showInput: Ref<boolean> = ref(false);
 
 function onKeydown(event: KeyboardEvent): void {
-    if (showInput.value) return;
-    if (event.ctrlKey || event.metaKey || event.altKey) return;
+  if (showInput.value) return;
+  if (event.ctrlKey || event.metaKey || event.altKey) return;
 
-    switch (event.key) {
-        case "a":
-            event.preventDefault();
-            showInput.value = true;
-            break;
-        case "d":
-            event.preventDefault();
-            store.removeSelected();
-            break;
-        case "j":
-            event.preventDefault();
-            store.selectNext();
-            break;
-        case "k":
-            event.preventDefault();
-            store.selectPrev();
-            break;
-        case "x":
-            event.preventDefault();
-            store.toggleSelected();
-            break;
-    }
+  switch (event.key) {
+    case "a":
+      event.preventDefault();
+      showInput.value = true;
+      break;
+    case "d":
+      event.preventDefault();
+      store.removeSelected();
+      break;
+    case "j":
+      event.preventDefault();
+      store.selectNext();
+      break;
+    case "k":
+      event.preventDefault();
+      store.selectPrev();
+      break;
+    case "x":
+      event.preventDefault();
+      store.toggleSelected();
+      break;
+  }
 }
 
 onMounted(() => window.addEventListener("keydown", onKeydown));
@@ -40,14 +40,14 @@ onUnmounted(() => window.removeEventListener("keydown", onKeydown));
 </script>
 
 <template>
-    <main class="app">
-        <TodoList />
-        <TodoInput v-if="showInput" @close="showInput = false" />
-    </main>
+  <main class="app">
+    <TodoList />
+    <TodoInput v-if="showInput" @close="showInput = false" />
+  </main>
 </template>
 
 <style scoped>
 .app {
-    padding: 24px;
+  padding: 24px;
 }
 </style>
