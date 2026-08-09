@@ -1,42 +1,15 @@
 import { ref, computed, Ref, ComputedRef } from "vue";
 import { defineStore } from "pinia";
 import type { DueDate, Todo, View } from "../types";
-
-let nextId: number = 1;
-
-function dummyTodos(): Todo[] {
-  return [
-    {
-      id: nextId++,
-      text: "Reply to client email",
-      done: false,
-      dueDate: "today",
-    },
-    { id: nextId++, text: "Fix login page bug", done: false, dueDate: "today" },
-    { id: nextId++, text: "Write unit tests", done: true, dueDate: "today" },
-    {
-      id: nextId++,
-      text: "Prepare slides for standup",
-      done: false,
-      dueDate: "tomorrow",
-    },
-    {
-      id: nextId++,
-      text: "Review pull request",
-      done: false,
-      dueDate: "tomorrow",
-    },
-    { id: nextId++, text: "Renew gym membership", done: false, dueDate: null },
-    { id: nextId++, text: "Read a book chapter", done: false, dueDate: null },
-    { id: nextId++, text: "Water the plants", done: true, dueDate: null },
-  ];
-}
+import * as api from "../api/todos";
 
 export const useTodoStore = defineStore("todos", () => {
   // Store state.
 
-  const todos: Ref<Todo[]> = ref<Todo[]>(dummyTodos());
+  const todos: Ref<Todo[]> = ref<Todo[]>([]);
   const view: Ref<View> = ref<View>("today");
+  const loading: Ref<boolean> = ref<boolean>(false);
+  const error: Ref<string | null> = ref<string | null>(null);
 
   // Readers.
 
@@ -48,9 +21,7 @@ export const useTodoStore = defineStore("todos", () => {
     return incomplete.filter((t) => t.dueDate === view.value);
   });
 
-  const selectedId: Ref<number | null> = ref<number | null>(
-    filteredTodos.value[0]?.id ?? null,
-  );
+  const selectedId: Ref<number | null> = ref<number | null>(null);
 
   const selectedIndex: ComputedRef<number> = computed(() =>
     filteredTodos.value.findIndex((t) => t.id === selectedId.value),
@@ -58,34 +29,52 @@ export const useTodoStore = defineStore("todos", () => {
 
   // Mutations.
 
+  async function initialize(): Promise<void> {
+    loading.value = true;
+    error.value = null;
+    try {
+      todos.value = await api.fetchTodos();
+      selectedId.value = filteredTodos.value[0]?.id ?? null;
+    } catch (err) {
+      error.value = (err as Error).message;
+    } finally {
+      loading.value = false;
+    }
+  }
+
   function setView(next: View): void {
     view.value = next;
     selectedId.value = filteredTodos.value[0]?.id ?? null;
   }
 
-  function add(text: string, dueDate: DueDate = null): void {
+  async function add(text: string, dueDate: DueDate = null): Promise<void> {
     const trimmed = text.trim();
     if (!trimmed) {
       return;
     }
-    const todo: Todo = {
-      id: nextId++,
-      text: trimmed,
-      done: false,
-      dueDate,
-    };
-    todos.value.push(todo);
-    selectedId.value = todo.id;
-  }
-
-  function toggle(id: number): void {
-    const todo = todos.value.find((t) => t.id === id);
-    if (todo) {
-      todo.done = !todo.done;
+    try {
+      const todo = await api.createTodo(trimmed, dueDate);
+      todos.value.push(todo);
+      selectedId.value = todo.id;
+    } catch (err) {
+      error.value = (err as Error).message;
     }
   }
 
-  function remove(id: number): void {
+  async function toggle(id: number): Promise<void> {
+    const todo = todos.value.find((t) => t.id === id);
+    if (!todo) {
+      return;
+    }
+    try {
+      const updated = await api.updateTodo(id, { done: !todo.done });
+      todo.done = updated.done;
+    } catch (err) {
+      error.value = (err as Error).message;
+    }
+  }
+
+  async function remove(id: number): Promise<void> {
     const index = todos.value.findIndex((t) => t.id === id);
     if (index === -1) {
       return;
@@ -97,7 +86,15 @@ export const useTodoStore = defineStore("todos", () => {
         remainingVisible[filteredIndex] ?? remainingVisible[filteredIndex - 1];
       selectedId.value = next ? next.id : null;
     }
-    todos.value.splice(index, 1);
+    try {
+      await api.deleteTodo(id);
+      const currentIndex = todos.value.findIndex((t) => t.id === id);
+      if (currentIndex !== -1) {
+        todos.value.splice(currentIndex, 1);
+      }
+    } catch (err) {
+      error.value = (err as Error).message;
+    }
   }
 
   function removeSelected(): void {
@@ -149,7 +146,10 @@ export const useTodoStore = defineStore("todos", () => {
     todos,
     selectedId,
     view,
+    loading,
+    error,
     filteredTodos,
+    initialize,
     setView,
     add,
     toggle,

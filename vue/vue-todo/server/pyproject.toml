@@ -1,0 +1,13 @@
+[project]
+name = "todo-server"
+version = "0.1.0"
+description = "Tiny in-memory todo list backend for the vue-todo app"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+todo-server = "todo_server.__main__:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"

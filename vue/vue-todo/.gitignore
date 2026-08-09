@@ -2,3 +2,5 @@ node_modules
 dist
 .direnv
 *.local
+*.egg-info
+__pycache__
