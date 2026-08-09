@@ -36,21 +36,14 @@ onUnmounted(() => window.removeEventListener("keydown", onKeydown));
 </script>
 
 <template>
-    <div class="app-box">
-        <main class="app">
-            <TodoList />
-            <TodoInput v-if="showInput" @close="showInput = false" />
-        </main>
-    </div>
+    <main class="app">
+        <TodoList />
+        <TodoInput v-if="showInput" @close="showInput = false" />
+    </main>
 </template>
 
 <style scoped>
-.app-box {
-    padding: 24px;
-}
-
 .app {
-    border: 1px solid black;
     padding: 24px;
 }
 </style>
