@@ -45,6 +45,12 @@ export const useTodoStore = defineStore("todos", () => {
     }
   }
 
+  function removeSelected(): void {
+    if (selectedId.value !== null) {
+      remove(selectedId.value);
+    }
+  }
+
   function select(id: number): void {
     selectedId.value = id;
   }
@@ -74,6 +80,7 @@ export const useTodoStore = defineStore("todos", () => {
     add,
     toggle,
     remove,
+    removeSelected,
     select,
     selectNext,
     selectPrev,

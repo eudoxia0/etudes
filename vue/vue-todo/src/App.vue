@@ -16,6 +16,10 @@ function onKeydown(event: KeyboardEvent): void {
             event.preventDefault();
             showInput.value = true;
             break;
+        case "d":
+            event.preventDefault();
+            store.removeSelected();
+            break;
         case "j":
             event.preventDefault();
             store.selectNext();
