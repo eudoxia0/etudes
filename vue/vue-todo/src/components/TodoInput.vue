@@ -8,7 +8,7 @@ const text: Ref<string> = ref("");
 const inputRef: Ref<HTMLInputElement | null> = ref(null);
 
 function submit(): void {
-  store.add(text.value);
+  store.add(text.value, store.view === "all" ? null : store.view);
   emit("close");
 }
 

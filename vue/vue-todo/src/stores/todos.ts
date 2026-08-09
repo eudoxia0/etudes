@@ -1,6 +1,6 @@
 import { ref, computed, Ref, ComputedRef } from "vue";
 import { defineStore } from "pinia";
-import type { Todo, View } from "../types";
+import type { DueDate, Todo, View } from "../types";
 
 let nextId: number = 1;
 
@@ -41,10 +41,11 @@ export const useTodoStore = defineStore("todos", () => {
   // Readers.
 
   const filteredTodos: ComputedRef<Todo[]> = computed(() => {
+    const incomplete = todos.value.filter((t) => !t.done);
     if (view.value === "all") {
-      return todos.value;
+      return incomplete;
     }
-    return todos.value.filter((t) => t.dueDate === view.value);
+    return incomplete.filter((t) => t.dueDate === view.value);
   });
 
   const selectedId: Ref<number | null> = ref<number | null>(
@@ -62,7 +63,7 @@ export const useTodoStore = defineStore("todos", () => {
     selectedId.value = filteredTodos.value[0]?.id ?? null;
   }
 
-  function add(text: string): void {
+  function add(text: string, dueDate: DueDate = null): void {
     const trimmed = text.trim();
     if (!trimmed) {
       return;
@@ -71,7 +72,7 @@ export const useTodoStore = defineStore("todos", () => {
       id: nextId++,
       text: trimmed,
       done: false,
-      dueDate: null,
+      dueDate,
     };
     todos.value.push(todo);
     selectedId.value = todo.id;
@@ -129,9 +130,19 @@ export const useTodoStore = defineStore("todos", () => {
   }
 
   function toggleSelected(): void {
-    if (selectedId.value !== null) {
-      toggle(selectedId.value);
+    const id = selectedId.value;
+    if (id === null) {
+      return;
     }
+    const todo = todos.value.find((t) => t.id === id);
+    if (todo && !todo.done) {
+      const filteredIndex = filteredTodos.value.findIndex((t) => t.id === id);
+      const remainingVisible = filteredTodos.value.filter((t) => t.id !== id);
+      const next =
+        remainingVisible[filteredIndex] ?? remainingVisible[filteredIndex - 1];
+      selectedId.value = next ? next.id : null;
+    }
+    toggle(id);
   }
 
   return {
